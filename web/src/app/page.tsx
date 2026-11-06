@@ -34,11 +34,22 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-4">
               <a href="/enquiry" className="bg-green-900 text-white px-6 py-3 rounded hover:bg-green-700">Make an Enquiry</a>
+
+              <a href="/menus"
+              className="border border-green-900 text-green-900 px-6 py-3 rounded hover:bg-green-100">View Menus</a>
+
             </div>
 
          
          </div>
+
+
+        <div className="w-full md:w-1/2 h-72 bg-gray-200 flex items-center justify-center rounded-lg">
+          <h3 className="text-gray-500">Hero image</h3>
+        </div>
       </section>
+
+
 
 
 
