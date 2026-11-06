@@ -24,6 +24,28 @@ export default function Home() {
 
         
       </header>
+
+      {/* hero Sectiomn */}
+      <section className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
+        <div className="w-full md:w-1/2">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Personal chef and Catering</h1>
+
+            <p className="text-lg mb-6">Experience the art of fine dining in the comfort of your own home with our personal chef and catering services.</p>
+
+            <div className="flex flex-wrap gap-4">
+              <a href="/enquiry" className="bg-green-900 text-white px-6 py-3 rounded hover:bg-green-700">Make an Enquiry</a>
+            </div>
+
+         
+         </div>
+      </section>
+
+
+
+
+
+
+
   </main>
 
   );
