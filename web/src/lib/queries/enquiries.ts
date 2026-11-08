@@ -6,10 +6,10 @@ export async function createEnquiry(data: EnquiryInput) {
   const client = await pool.connect();
 
   try {
-    // start  database transaction.
+    // start  database transaction
     await client.query("BEGIN");
 
-    // Creates  customer.
+    // Creates  customer
     const customerResult = await client.query(
       `INSERT INTO customer (full_name, email, phone)
        VALUES ($1, $2, $3)
@@ -19,7 +19,7 @@ export async function createEnquiry(data: EnquiryInput) {
 
     const customerId = customerResult.rows[0].customer_id;
 
-    // Create the enquiry linked to the customer.
+    // Create the enquiry linked to the customer
     const enquiryResult = await client.query(
       `INSERT INTO enquiry (
          customer_id,
@@ -39,7 +39,7 @@ export async function createEnquiry(data: EnquiryInput) {
       ]
     );
 
-    // Save both records.
+    // Save both records
     await client.query("COMMIT");
 
     return {
@@ -47,12 +47,12 @@ export async function createEnquiry(data: EnquiryInput) {
     };
 
   } catch (error) {
-    // Undo both inserts if something fails.
+    // Undo both inserts if something fails
     await client.query("ROLLBACK");
     throw error;
 
   } finally {
-    // Returns connection to the pool.
+    // Returns connection to the pool
     client.release();
   }
 }
