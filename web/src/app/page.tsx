@@ -1,6 +1,8 @@
+import ServiceCard from "@/components/ServiceCard";
+
 export default function Home() {
   return (
-    <main className="bgamber-50 text-gray-800">
+    <main className="bg-amber-50 text-gray-800">
 
       {/* Navigation */}
       <header className="bg-green-950 text-white p-5">
@@ -16,7 +18,7 @@ export default function Home() {
             <a href="/" className="hover:text-amber-300">Home</a>
              <a href="/services" className="hover:text-amber-300">Services</a>
             <a href="/menus" className="hover:text-amber-300">Menus</a>
-            <a href="/enquiry" className="hover:text-amber-300">Contact</a>
+            <a href="/contact" className="hover:text-amber-300">Contact</a>
 
             </div>
         </nav>
@@ -48,6 +50,19 @@ export default function Home() {
           <h3 className="text-gray-500">Hero image</h3>
         </div>
       </section>
+
+      {/* About Section */}
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-6">About Us</h2>
+          <p className="text-lg text-gray-600 max-w-3xl">
+            Tailored Taste brings personal chef and catering services to your home or event. 
+            From private dinners to specialoccasions, our aim is to provide great food and a memorable dining experience. </p>
+
+        </div>
+      </section>
+
+
 
 
 
