@@ -119,21 +119,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Enquiry Section */}
+      <section className="bg-green-950 text-white py-16">
+        <div className="max-w-6xl mx-auto px-6 text-center ">
+          <h2 className="text-3xl font-bold mb-4">Ready to make an enquiry?</h2>
+          <p className="text-lg mb-6">Get in touch with us to discuss your special occasion.</p>
 
+          <a href="/contact" className="inline-block bg-amber-300 text-green-950 px-8 py-3 rounded font-semibold hover:bg-amber-200">Make an Enquiry </a>
+        </div>
+      </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-  </main>
-
+    </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
