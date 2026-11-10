@@ -1,4 +1,5 @@
 import ServiceCard from "@/components/ServiceCard";
+import MenuCard from "@/components/MenuCard";
 
 export default function Home() {
   return (
@@ -89,6 +90,35 @@ export default function Home() {
           </div>
 
       </section>
+
+      {/* Menus Section */}
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+
+          <h2 className="text-3xl font-bold mb-4">Our Menus</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mb-8">Discover our range of offerings, with menus tailored to suit your occasion</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+              <MenuCard
+                title="Private Dining"
+                description="A personal dining experience for small groups and gatherings."
+              />
+
+              <MenuCard
+                title="Event menus"
+                description="A selection of carefully prepared courses for your event."
+              />
+
+              <MenuCard
+                title="Bespoke Menus"
+                description="A menu planned around your preferences and requirements."
+              />
+
+            </div>
+        </div>
+      </section>
+
 
 
 
