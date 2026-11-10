@@ -1,32 +1,12 @@
 import ServiceCard from "@/components/ServiceCard";
 import MenuCard from "@/components/MenuCard";
 
+
 export default function Home() {
   return (
     <main className="bg-amber-50 text-gray-800">
 
-      {/* Navigation */}
-      <header className="bg-green-950 text-white p-5">
-        <nav className="max-w-6xl mx-auto flex flex-wrap justify-between items-center ">
-
-
-           <h2 className="text-2xl font-bold">
-            Tailored Taste
-          </h2>
-
-
-          <div className="flex flex-wrap gap-4">
-            <a href="/" className="hover:text-amber-300">Home</a>
-             <a href="/services" className="hover:text-amber-300">Services</a>
-            <a href="/menus" className="hover:text-amber-300">Menus</a>
-            <a href="/contact" className="hover:text-amber-300">Contact</a>
-
-            </div>
-        </nav>
-
-
-        
-      </header>
+      
 
       {/* hero Sectiomn */}
       <section className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
@@ -36,7 +16,7 @@ export default function Home() {
             <p className="text-lg mb-6">Experience the art of fine dining in the comfort of your own home with our personal chef and catering services.</p>
 
             <div className="flex flex-wrap gap-4">
-              <a href="/enquiry" className="bg-green-900 text-white px-6 py-3 rounded hover:bg-green-700">Make an Enquiry</a>
+              <a href="/contact" className="bg-green-900 text-white px-6 py-3 rounded hover:bg-green-700">Make an Enquiry</a>
 
               <a href="/menus"
               className="border border-green-900 text-green-900 px-6 py-3 rounded hover:bg-green-100">View Menus</a>
