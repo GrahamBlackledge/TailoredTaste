@@ -62,6 +62,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Section */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold mb-4">Our Services</h2>
+        <p className="text-lg text-gray-600 max-w-3xl">From our chefs to your home, explore the different ways our chefs can cater to you</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <ServiceCard title="Private Dining"
+          description="Enjoy our chefs restaurant quallity dishes in the comfort of your own home."/>
+
+          <ServiceCard title="Event Catering"
+          description="Let us look after your next event with our professional catering services."/>
+
+          <ServiceCard title="Special Occasions"
+          description="From birthdays to anniversaries, we create memorable dining experiences and will go the extra mile."/>
+          
+          <ServiceCard title="Custom Menus"
+          description="Menus created around your tastes and dietary requirementss"/>
+              
+          </div>
+
+          <div className="mt-8">
+            <a href="/services" 
+            className="text-green-900 font-semibold hover:underline ">Explore our Services</a>
+          </div>
+
+      </section>
+
+
+
+
 
 
 
