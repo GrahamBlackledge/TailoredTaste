@@ -7,9 +7,10 @@ import { useState } from "react";
 type MenuCardProps = {
   title: string;
   description: string;
+  fileUrl?: string;
 };
 
-export default function MenuCard({ title, description }: MenuCardProps) {
+export default function MenuCard({ title, description, fileUrl }: MenuCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -55,6 +56,15 @@ export default function MenuCard({ title, description }: MenuCardProps) {
               {description}
             </p>
 
+            {fileUrl ? (
+                <iframe
+                    src={fileUrl}
+                    title={title}
+                    className="w-full h-96 border rounded-lg"
+                ></iframe>
+            ) : (
+                
+
             <div className="bg-gray-100 rounded-lg p-8 text-center">
               <h3 className="font-semibold mb-2">
                 Sample Menu Coming Soon
@@ -63,10 +73,12 @@ export default function MenuCard({ title, description }: MenuCardProps) {
               <p className="text-gray-500">
                 Our menus are currently being prepared.
               </p>
-            </div>
-          </div>
+                        </div>
+          )}
+
+         </div>
         </div>
-      )}
+    )}
     </>
   );
 }
