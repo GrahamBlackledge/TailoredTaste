@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "argon2": "^0.45.2",
     "next": "16.4.4",
+    "next-auth": "^5.0.0-beta.32",
     "pg": "^8.23.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
