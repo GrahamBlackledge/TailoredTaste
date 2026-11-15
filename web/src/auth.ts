@@ -16,18 +16,25 @@ const loginSchema =z.object({
 
 //store login session with token for 8 hours
 export const { handlers, auth, signIn, signOut } = NextAuth({
+
+    pages: {
+    signIn: "/admin/login",
+    },
+
     session: {
         strategy: "jwt",
         maxAge: 60 * 60 * 8,
     },
 
 
-providers: [
-    Credentials({
-        credentials: { 
-            email: { label: "Email", type: "email"},
-            password: { label: "Password ", type: "password"}
-        },
+
+
+    providers: [
+        Credentials({
+            credentials: { 
+                email: { label: "Email", type: "email"},
+                password: { label: "Password ", type: "password"}
+            },
 
 
     //validate credentials
