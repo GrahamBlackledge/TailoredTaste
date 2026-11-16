@@ -3,25 +3,24 @@ import { Suspense } from "react";
 import { auth, signOut } from "@/auth";
 import { redirect } from "next/navigation";
 
+import { requireAdmin } from "@/lib/auth/admin-access";
+
 export default function AdminPage() {
     return (
         <main className="min-h-screen bg-gray-100 p-8">
-            <Suspense fallback={<p>Checking your session...</p>}>
-                <AdminContent />
+            <Suspense fallback={<p>Checkin admin access...</p>}>
+                <AdminDashboard />
             </Suspense>
         </main>
     );
 }
 
-async function AdminContent() {
+async function AdminDashboard() {
 
-    // Get current login session
-    const session = await auth();
+    // Verify admin
+    const admin = await requireAdmin();
 
-    // Redirect for none logged in
-    if (!session?.user) {
-        redirect("/admin/login");
-    }
+    
 
     return (
         <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
@@ -30,18 +29,23 @@ async function AdminContent() {
                 Admin Dashboard
             </h1>
 
-            <p className="text-gray-700 mb-2">
-                Welcome, {session.user.name}
+            <p className="mb-2">
+                Welcome, {admin.full_name}
+            </p>
+
+            <p className="text-gray-500 mb-2">
+                {admin.email}
             </p>
 
             <p className="text-gray-500 mb-6">
-                {session.user.email}
+                Role: {admin.role}
             </p>
 
-           
-            
+            <p className="mb-8">
+                Tailored Taste administration dashboard.
+            </p>
 
-            {/* Logout using a Server Action */}
+            {/* Sign out and return to login */}
             <form
                 action={async () => {
                     "use server";
