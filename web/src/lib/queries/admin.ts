@@ -26,7 +26,31 @@ export async function getAdminByEmail(email: string) {
      LIMIT 1`,
     [email]
   );
+  
 
 
   return result.rows[0] ?? null;
+}
+
+export type ActiveAdmin = Pick<
+    AdminUser,
+    "admin_user_id" | "full_name" | "email" | "role"
+>;
+
+export async function getActiveAdminByEmail(email: string) {
+
+    const result = await pool.query<ActiveAdmin>(
+        `SELECT
+            admin_user_id,
+            full_name,
+            email,
+            role
+         FROM admin_user
+         WHERE LOWER(email) = LOWER($1)
+         AND is_active = TRUE
+          LIMIT 1`,
+        [email]
+    );
+
+    return result.rows[0] ?? null;
 }
