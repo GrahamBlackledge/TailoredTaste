@@ -7,7 +7,7 @@ export type AdminUser = {
   full_name: string;
   email: string;
   password_hash: string;
-  role: "owner" | "staff";
+  role: "admin";
   is_active: boolean;
 };
 
@@ -48,6 +48,7 @@ export async function getActiveAdminByEmail(email: string) {
          FROM admin_user
          WHERE LOWER(email) = LOWER($1)
          AND is_active = TRUE
+         AND role = 'admin'
           LIMIT 1`,
         [email]
     );

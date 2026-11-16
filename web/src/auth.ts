@@ -4,6 +4,7 @@ import { z } from "zod";
 import argon2 from  "argon2";
 
 import { getAdminByEmail } from "./lib/queries/admin";
+import {allowLoginAttempt,  clearLoginAttempts,} from "@/lib/auth/login-rate-limit";
 
 
 // Validates login info
@@ -45,14 +46,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         const{ email , password } = parsed.data;
+        
+        const allowed = await allowLoginAttempt(email);
+
+            if (!allowed) {
+                return null;
+            }
 
 
             // find admin, check is admin
         const admin = await getAdminByEmail(email);
 
-        if (!admin || !admin.is_active) {
-            return null;
-        }
+        if (!admin || !admin.is_active || admin.role !== "admin") {
+    return null;
+}
 
         // verifyu against password hash
         const validPassword = await argon2.verify(

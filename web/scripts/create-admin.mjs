@@ -50,7 +50,7 @@ try {
   const result = await pool.query(
     `INSERT INTO admin_user
       (full_name, email, password_hash, role, is_active)
-     VALUES ($1, $2, $3, 'owner', TRUE)
+     VALUES ($1, $2, $3, 'admin', TRUE)
      RETURNING admin_user_id, full_name, email, role`,
     [fullName, email.toLowerCase(), passwordHash]
   );
