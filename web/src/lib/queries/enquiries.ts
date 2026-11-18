@@ -78,14 +78,14 @@ export async function createEnquiry(data: EnquiryInput) {
     export async function getEnquiries(): Promise<EnquiryListItem[]> {
 
       await requireAdmin();
-      const result = await pool.query<EnquiryListItem>(
+      const result = await pool.query<EnquiryListItem> (
         `SELECT
               e.enquiry_id::text AS "enquiryId",
               c.full_name AS  "customerName",
               c.email AS "customerEmail",
               TO_CHAR(e.event_date, 'YYYY-MM-DD') AS "eventDate",
               e.guest_count AS "guestCount",
-              e.event_location AS "eventLocation
+              e.event_location AS "eventLocation",
               e.status,
               e.created_at AS "createdAt"
           FROM enquiry e
