@@ -19,6 +19,15 @@ export type EnquiryListItem = {
 };
 
 
+export type EnquiryDetail = EnquiryListItem & {
+
+  customerPhone: string | null;
+  dietaryNotes: string  | null;
+
+
+};
+
+
 export async function createEnquiry(data: EnquiryInput) {
   const client = await pool.connect();
 
@@ -97,6 +106,44 @@ export async function createEnquiry(data: EnquiryInput) {
       );
       return result.rows;
   }
+
+
+
+  export async function getEnquiryById(
+    enquiryId:string ) : Promise<EnquiryDetail | null> {
+      await requireAdmin();
+       if (
+        !/^[1-9]\d*$/.test(enquiryId) ||
+        BigInt(enquiryId) > BigInt("9223372036854775807")
+      ) {
+        return null;
+      }
+
+       const result = await pool.query<EnquiryDetail>(
+    `SELECT
+       e.enquiry_id::text AS "enquiryId",
+       c.full_name AS "customerName",
+       c.email AS "customerEmail",
+       c.phone AS "customerPhone",
+       TO_CHAR(e.event_date, 'YYYY-MM-DD') AS "eventDate",
+       e.guest_count AS "guestCount",
+       e.event_location AS "eventLocation",
+       e.dietary_notes AS "dietaryNotes",
+       e.status,
+       e.created_at AS "createdAt"
+     FROM enquiry e
+     JOIN customer c
+       ON e.customer_id = c.customer_id
+     WHERE e.enquiry_id = $1
+     LIMIT 1`,
+    [enquiryId]
+       );
+
+    return result.rows[0] ?? null;
+ 
+
+    }
+  
 
 
 
