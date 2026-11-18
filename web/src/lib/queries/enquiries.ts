@@ -2,6 +2,23 @@
 import pool from "@/lib/db";
 import type { EnquiryInput } from "@/lib/validation/enquiry";
 
+import { requireAdmin } from "../auth/admin-access";
+
+// type object for enquiries in admin dashbaoard
+export type EnquiryListItem = {
+  enquiryId: string;
+  customerName: string;
+  customerEmail: string;
+  eventDate: string;
+  guestCount: number;
+  eventLocation: string | null;
+  status: string | null;
+  createdAt: Date | null;
+
+
+};
+
+
 export async function createEnquiry(data: EnquiryInput) {
   const client = await pool.connect();
 
@@ -56,3 +73,31 @@ export async function createEnquiry(data: EnquiryInput) {
     client.release();
   }
 }
+
+
+    export async function getEnquiries(): Promise<EnquiryListItem[]> {
+
+      await requireAdmin();
+      const result = await pool.query<EnquiryListItem>(
+        `SELECT
+              e.enquiry_id::text AS "enquiryId",
+              c.full_name AS  "customerName",
+              c.email AS "customerEmail",
+              TO_CHAR(e.event_date, 'YYYY-MM-DD') AS "eventDate",
+              e.guest_count AS "guestCount",
+              e.event_location AS "eventLocation
+              e.status,
+              e.created_at AS "createdAt"
+          FROM enquiry e
+          JOIN customer c
+            ON e.customer_id = c.customer_id
+          ORDER BY e.created_at DESC, e.enquiry_id DESC
+          LIMIT 50
+              `
+      );
+      return result.rows;
+  }
+
+
+
+
