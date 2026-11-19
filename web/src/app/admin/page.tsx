@@ -1,6 +1,7 @@
 
 import { Suspense } from "react";
 import { auth, signOut } from "@/auth";
+import Link from "next/link";
 
 
 import { requireAdmin } from "@/lib/auth/admin-access";
@@ -93,6 +94,7 @@ async function AdminDashboard() {
                                     <th className="px-5 py-3">Event Date </th>
                                     <th className="px-5 py-3"> Guests</th>
                                     <th className="px-5 py-3">Status</th>
+                                    <th className="px-5 py-3">Action</th>
                                       </tr>
                                 </thead>
                                  <tbody>
@@ -128,6 +130,11 @@ async function AdminDashboard() {
                                         <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
                                             {enquiry.status ?? "Not set"}
                                         </span>
+                                        </td>
+                                        <td className="px-5 py-4">
+                                            <Link
+                                                href={`/admin/enquiries/${enquiry.enquiryId}`}
+                                                className="text-green-900 font-semibold hover:underline">View</Link>
                                         </td>
 
                                     </tr>
