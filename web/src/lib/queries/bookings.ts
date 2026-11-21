@@ -19,7 +19,7 @@ export async function getBookingForEnquiry(
   //checks enquiry id is valid BigInt
   if (
     !/^[1-9]\d{0,18}$/.test(enquiryId) ||
-    BigInt(enquiryId) > 9223372036854775807n
+    BigInt(enquiryId) > BigInt("9223372036854775807")
   ) {
     return null;
   }
