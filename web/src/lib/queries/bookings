@@ -1,0 +1,41 @@
+
+import  pool  from "../db";
+import { requireAdmin } from "../auth/admin-access";
+
+
+//  Type obj for booking linked to enquiry
+export type BookingForEnquiry = {
+  bookingId: string;
+  status: "confirmed" | "completed" | "cancelled";
+};
+
+//check f enquiry has booking already
+export async function getBookingForEnquiry(
+  enquiryId: string
+): Promise<BookingForEnquiry | null> {
+
+  await requireAdmin();
+
+  //checks enquiry id is valid BigInt
+  if (
+    !/^[1-9]\d{0,18}$/.test(enquiryId) ||
+    BigInt(enquiryId) > 9223372036854775807n
+  ) {
+    return null;
+  }
+
+  //Find existing enquiry in db
+  const result = await pool.query<BookingForEnquiry>(
+    `SELECT
+       booking_id::text AS "bookingId",
+       status
+     FROM booking
+     WHERE enquiry_id = $1
+     LIMIT 1`,
+    [enquiryId]
+  );
+
+  
+  // return booking
+  return result.rows[0] ?? null;
+}
