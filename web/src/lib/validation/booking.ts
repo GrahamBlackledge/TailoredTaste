@@ -23,11 +23,12 @@ export const createBookingSchema = z.object({
 
   dietaryNotes: z.string()
     .trim()
-    .max(5000, "Dietary notes are too long"),
+    .max(5000, "Dietary notes too long")
+    .nullish(),
 
   internalNotes: z.string()
     .trim()
-    .max(5000, "Internal notes are too long"),
+    .max(5000, "Internal notes too long"),
 
 });
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/admin-access";
 import { getEnquiryById } from "@/lib/queries/enquiries";
 import { getBookingForEnquiry } from "@/lib/queries/bookings";
+import { createBooking } from "../actions";
 
 
 // type for url search parameters
@@ -96,7 +97,8 @@ async function BookingFormPage({
 
                 </section>
 
-                <form className="bg-white border rounded-lg p-6 space-y-5">
+                <form action={createBooking.bind(null, enquiryId)}
+                 className="bg-white border rounded-lg p-6 space-y-5">
                     <h2 className="text-xl font-semibold">
                         Event Details
                     </h2>
@@ -173,7 +175,7 @@ async function BookingFormPage({
                     </div>
                     <button
                         type="submit"
-                        disabled
+                        
                         className="bg-green-800 text-white px-6 py-3 rounded-lg opacity-50">
                         Confirm booking
                     </button>
