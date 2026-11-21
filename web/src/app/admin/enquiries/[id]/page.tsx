@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getEnquiryById } from "@/lib/queries/enquiries";
 import { saveEnquiryStatus } from "../actions";
+import { Suspense } from "react";
 
 
 type EnquiryPageProps = {
@@ -11,13 +12,32 @@ type EnquiryPageProps = {
 
 export default async function EnquiryDetailPage({
     params, }:EnquiryPageProps) {
-        const { id } = await params;
+        return (
+             <Suspense fallback={<p className="p-8">Loading enquiry...</p>}>
+            <EnquiryDetails params={params} />
+            </Suspense>
 
-        const enquiry = await getEnquiryById(id);
-
-        if (!enquiry) {
-            notFound();
+            );
         }
+        //display enquiry details
+        async function EnquiryDetails({
+            params,
+        }: EnquiryPageProps) {
+
+                // gets id from url
+            const { id } = await params;
+             
+            //Checks admin access and retrives id
+            const enquiry = await getEnquiryById(id);
+             
+            if (!enquiry) {
+                notFound();
+                }
+
+ 
+
+
+      
 
 
         return  (
@@ -25,14 +45,14 @@ export default async function EnquiryDetailPage({
             <main className="min-h-screen bg-gray-100  p-8">
                 <div className="max -w-4xl mx-auto">
 
-                    <link href="/admin" className="text-green-900 hover:underline"> Back to Dashboard</link>
+                    <Link href="/admin" className="text-green-900 hover:underline"> Back to Dashboard</Link>
                     <div className="bg-white rounded-xl shadow p-8 mt-6">
 
                         <h1 className="text-3xl font-bold text-green-900 mb-4"> Enquiry #{enquiry.enquiryId} </h1>
 
                         <p className="text-gray-600-mb-8"> Status: {enquiry.status ?? "Not set"}</p>
                         <form action={saveEnquiryStatus.bind(null, enquiry.enquiryId)}
-                            className="bg-gray-50 p-6 rounded-lg mb-8">
+                             className="bg-gray-50 p-6 rounded-lg mb-8">
 
                                 <h2 className="text-lg font-bold mb-4">
                                     Upadte status
