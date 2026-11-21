@@ -3,6 +3,7 @@ import pool from "@/lib/db";
 import type { EnquiryInput } from "@/lib/validation/enquiry";
 
 import { requireAdmin } from "../auth/admin-access";
+import type { EnquiryStatus } from "../validation/status";
 
 // type object for enquiries in admin dashbaoard
 export type EnquiryListItem = {
@@ -143,8 +144,31 @@ export async function createEnquiry(data: EnquiryInput) {
  
 
     }
+
+    // Upadte enquiry status
+
+    export async function updateEnquiryStatusInDb(
+      enquiryId: string, status: EnquiryStatus 
+    ): Promise<boolean> {
+
+
+      await requireAdmin();
+
+      // update the enquiry 
+      const result = await pool.query(
+        `UPDATE enquiry
+        SET status = $1
+        WHERE enquiry_id = $2`,
+        [status, enquiryId]
+      );
+
+      return result.rowCount === 1;
+    }
+
+
+
+
+
+    
   
-
-
-
 

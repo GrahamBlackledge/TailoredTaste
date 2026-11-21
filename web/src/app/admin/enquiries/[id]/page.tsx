@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getEnquiryById } from "@/lib/queries/enquiries";
+import { saveEnquiryStatus } from "../actions";
+
 
 type EnquiryPageProps = {
     params: Promise<{ id: string }>;
@@ -29,6 +31,35 @@ export default async function EnquiryDetailPage({
                         <h1 className="text-3xl font-bold text-green-900 mb-4"> Enquiry #{enquiry.enquiryId} </h1>
 
                         <p className="text-gray-600-mb-8"> Status: {enquiry.status ?? "Not set"}</p>
+                        <form action={saveEnquiryStatus.bind(null, enquiry.enquiryId)}
+                            className="bg-gray-50 p-6 rounded-lg mb-8">
+
+                                <h2 className="text-lg font-bold mb-4">
+                                    Upadte status
+                                </h2>
+                                <label htmlFor="status" className="block text-sm font-medium mb-2">
+                                    Select status
+                                </label>
+
+                                <select
+                                    id="status"
+                                     name="status"
+                                     defaultValue={enquiry.status ?? "new"}
+                                    className="w-full border border-gray-300 rounded-lg p-3 mb-4">
+                                        <option value="new">New</option>
+                                        <option value="reviewing">Reviewing</option>
+                                        <option value="quoted">Quoted</option>
+                                        <option value="closed">Closed</option>
+                                    </select>
+                                    <button type="submit" className="bg-green-900 text-white px-5 py-3 rounded-lg hover:bg-green-800 cursor-pointer">
+                                        Save status
+                                    </button>
+
+
+
+
+                        </form>
+
 
                         <section className="mb-8">
 
