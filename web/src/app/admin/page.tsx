@@ -5,7 +5,7 @@ import Link from "next/link";
 
 
 import { requireAdmin } from "@/lib/auth/admin-access";
-import { getEnquiries } from "@/lib/queries/enquiries";
+import { getEnquiries, getEnquirySummary } from "@/lib/queries/enquiries";
 
 export default function AdminPage() {
     return (
@@ -24,6 +24,10 @@ async function AdminDashboard() {
 
     // Fet enquirey records from PostgreSQL
     const enquiries = await getEnquiries();
+
+    // get summary of enquiries
+    const summary = await getEnquirySummary();
+    const pendingEnquiries = summary.newEnquiries + summary.reviewingEnquiries;
 
 
     
@@ -65,6 +69,55 @@ async function AdminDashboard() {
                     Sign Out
                 </button>
             </form>
+
+            {/* summary cards*/}
+            <section className="mt-10">
+                <h2 className="text-2xl font-bold text-green-900 mb-6">
+                    Enquiry Overview
+                </h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                    <div className="bg-gray-50 border rounded-lg p-5">
+                        <h3 className="text-sm text-gray-600">
+                            Total Enquiries
+                        </h3>
+                        <p className="text-3xl font-bold text-green-900 mt-2">
+                            {summary.totalEnquiries}
+                        </p>
+                    </div>
+                    <div className="bg-gray-50 border rounded-lg p-5">
+                        <h3 className="text-sm text-gray-600">
+                            New Enquiries
+                        </h3>
+                        <p className="text-3xl font-bold text-green-900 mt-2">
+                            {summary.newEnquiries}
+                        </p>
+                    </div>
+                    <div className="bg-gray-50 border rounded-lg p-5">
+                        <h3 className="text-sm text-gray-600">
+                            Pending Enquiries
+                        </h3>
+                        <p className="text-3xl font-bold text-green-900 mt-2">
+                            {pendingEnquiries}
+                        </p>
+                    </div>
+                    <div className="bg-gray-50 border rounded-lg p-5">
+                        <h3 className="text-sm text-gray-600">
+                            Quoted Enquiries
+                        </h3>
+                        <p className="text-3xl font-bold text-green-900 mt-2">
+                            {summary.quotedEnquiries}
+                        </p>
+                    </div>
+
+                </div>
+
+
+
+            </section>
+
+
 
             {/* Enquiry dashboard*/}
 

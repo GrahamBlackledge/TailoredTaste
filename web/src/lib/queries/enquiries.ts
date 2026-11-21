@@ -166,6 +166,45 @@ export async function createEnquiry(data: EnquiryInput) {
     }
 
 
+    export type EnquirySummary = {
+      totalEnquiries: number;
+      newEnquiries: number;
+      reviewingEnquiries: number;
+      quotedEnquiries: number;
+      closedEnquiries: number;
+
+       };
+
+
+
+export async function getEnquirySummary(): Promise<EnquirySummary> {
+
+
+  await requireAdmin();
+
+
+  const result = await pool.query<EnquirySummary>(
+    `SELECT
+       COUNT(*)::integer AS "totalEnquiries",
+
+       COUNT(*) FILTER (WHERE status = 'new')::integer
+         AS "newEnquiries",
+
+       COUNT(*) FILTER (WHERE status = 'reviewing')::integer
+         AS "reviewingEnquiries",
+
+       COUNT(*) FILTER (WHERE status = 'quoted')::integer
+         AS "quotedEnquiries",
+
+       COUNT(*) FILTER (WHERE status = 'closed')::integer
+         AS "closedEnquiries"
+
+     FROM enquiry`
+  );
+
+
+  return result.rows[0];
+}
 
 
 
