@@ -134,5 +134,87 @@ export async function getBookingForEnquiry(
           client.release();
         }
       }
+
+      export type BookingListItem = {
+        bookingId: string;
+        customerName: string;
+        eventDate: string;
+        guestCount: number;
+        eventLocation: string | null;
+        status: string;
+        packageName: string | null;
+
+      };
+
+      export type BookingDetails = BookingListItem & {
+        customerEmail: string;
+        customerPhone: string | null;
+        enquiryId: string | null;
+        dietaryNotes: string | null;
+        internalNotes: string | null;
+
+      };
+
+      export async function getBookings(): Promise<BookingListItem[]> {
+        await requireAdmin();
+
+        const result = await pool.query<BookingListItem>(
+          `SELECT
+          
+              b.booking_id::text AS "bookingId",
+              c.full_name AS "customerName",
+              TO_CHAR(b.event_date, "YYYY-MM-DD") AS "eventDate",
+              b.guest_count AS "guestCount",
+              b.event_location AS "eventLocation,
+              b.status,
+              m.package_name AS "PackageName"
+            FROM booking b
+            JOIN customer c ON b.customer_id = c.customer_id
+            LEFT JOIN menu_package m ON b.package_id = m.package_id
+            ORDER BY b.event_date ASC, b.booking_id ASC`
+
+        );
+        return result.rows;
+
+      }
+      export async function getBookingById(
+          bookingId: string
+        ): Promise<BookingDetails | null> {
+          await requireAdmin();
+
+         
+          if (
+            !/^[1-9]\d{0,18}$/.test(bookingId) ||
+            BigInt(bookingId) > BigInt("9223372036854775807")
+          ) {
+            return null;
+          }
+
+          const result = await pool.query<BookingDetails>(
+            `SELECT
+              b.booking_id::text AS "bookingId",
+              b.enquiry_id::text AS "enquiryId",
+              c.full_name AS "customerName",
+              c.email AS "customerEmail",
+              c.phone AS "customerPhone",
+              TO_CHAR(b.event_date, 'YYYY-MM-DD') AS "eventDate",
+              b.guest_count AS "guestCount",
+              b.event_location AS "eventLocation",
+              b.status,
+              b.dietary_notes AS "dietaryNotes",
+              b.internal_notes AS "internalNotes",
+              m.package_name AS "packageName"
+            FROM booking b
+            JOIN customer c ON b.customer_id = c.customer_id
+            LEFT JOIN menu_package m ON b.package_id = m.package_id
+            WHERE b.booking_id = $1
+            LIMIT 1`,
+            [bookingId]
+          );
+
+          return result.rows[0] ?? null;
+
+        }
     
+
 
