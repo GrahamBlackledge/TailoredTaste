@@ -142,6 +142,11 @@ export default async function EnquiryDetailPage({
 
                     </div>
                 </div>
+                <Link
+                    href={`/admin/bookings/new?enquiryId=${enquiry.enquiryId}`}
+                    className="inline-block bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-900">
+                    Create Booking
+                </Link>
             </main>
 
 
