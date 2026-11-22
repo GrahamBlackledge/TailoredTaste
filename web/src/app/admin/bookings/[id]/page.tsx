@@ -29,7 +29,7 @@ async function BookingInformation({ params }: BookingPageProps) {
     }
     return (
         <main className="max-w-4xl mx-auto p-8">
-            <Link href="/admin.bookings" className="text-green-800 underline">
+            <Link href="/admin/bookings" className="text-green-800 underline">
                 back to bookings
             </Link>
             <h1 className="text-3xl font-bold text-green-900 mt-6 mb-6">

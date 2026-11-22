@@ -155,7 +155,7 @@ async function BookingFormPage({
                         
                         <textarea
                             id="dietaryNotes"
-                            name="dietrayNotes"
+                            name="dietaryNotes"
                             rows={4}
                             defaultValue={enquiry.dietaryNotes ?? ""}
                             className="w-full border rounded-lg p-3" />
@@ -167,7 +167,7 @@ async function BookingFormPage({
                         </label>
                         
                         <textarea
-                            id="internalNotess"
+                            id="internalNotes"
                             name="internalNotes"
                             rows={4}
                             className="w-full border rounded-lg p-3" />
@@ -175,7 +175,7 @@ async function BookingFormPage({
                     </div>
                     <button
                         type="submit"
-                        
+
                         className="bg-green-800 text-white px-6 py-3 rounded-lg opacity-50">
                         Confirm booking
                     </button>
