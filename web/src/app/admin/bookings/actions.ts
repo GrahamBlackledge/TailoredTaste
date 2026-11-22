@@ -30,11 +30,12 @@ export async function createBooking(
 
     }
 
-    await createBookingFromEnquiry(result.data);
+    const bookingId = await createBookingFromEnquiry(result.data);
 
     revalidatePath("/admin");
     revalidatePath(`/admin/enquiries/${enquiryId}`);
+    revalidatePath("/admin/bookings");
 
-    redirect(`/admin/enquiries/${enquiryId}`)
+    redirect(`/admin/bookings/${bookingId}`);
 
 }

@@ -163,11 +163,11 @@ export async function getBookingForEnquiry(
           
               b.booking_id::text AS "bookingId",
               c.full_name AS "customerName",
-              TO_CHAR(b.event_date, "YYYY-MM-DD") AS "eventDate",
+              TO_CHAR(b.event_date, 'YYYY-MM-DD') AS "eventDate",
               b.guest_count AS "guestCount",
-              b.event_location AS "eventLocation,
+              b.event_location AS "eventLocation",
               b.status,
-              m.package_name AS "PackageName"
+              m.package_name AS "packageName"
             FROM booking b
             JOIN customer c ON b.customer_id = c.customer_id
             LEFT JOIN menu_package m ON b.package_id = m.package_id
