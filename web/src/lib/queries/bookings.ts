@@ -2,6 +2,8 @@
 import  pool  from "../db";
 import { requireAdmin } from "../auth/admin-access";
 import type { CreateBookingInput } from "../validation/booking";
+import type { UpdateBookingInput } from "../validation/booking";
+
 
 
 //  Type obj for booking linked to enquiry
@@ -215,6 +217,45 @@ export async function getBookingForEnquiry(
           return result.rows[0] ?? null;
 
         }
+
+
+        
+  // Update an existing booking
+
+export async function updateBooking(
+  data: UpdateBookingInput
+): Promise<boolean> {
+
+  await requireAdmin();
+
+
+  const result = await pool.query(
+    `UPDATE booking
+     SET
+       event_date = $2,
+       guest_count = $3,
+       event_location = $4,
+       dietary_notes = $5,
+       internal_notes = $6,
+       status = $7
+     WHERE booking_id = $1`,
+    [
+
+      data.bookingId,
+      data.eventDate,
+      data.guestCount,
+      data.eventLocation || null,
+      data.dietaryNotes || null,
+      data.internalNotes || null,
+      data.status,
+    ]
+  );
+
+
+  return result.rowCount === 1;
+}
+
+
     
 
 
