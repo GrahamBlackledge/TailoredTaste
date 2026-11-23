@@ -34,3 +34,23 @@ export const createBookingSchema = z.object({
 
 
 export type CreateBookingInput = z.infer<typeof createBookingSchema>;
+
+
+
+//Editing existing booking schema
+export const updateBookingSchema = createBookingSchema
+
+    .omit({ enquiryId: true })
+    .extend({
+      bookingId: z.string().refine(
+        (id) =>
+          /^[1-9]\d{0,18}$/.test(id) &&
+          BigInt(id) <= BigInt("9223372036854775807"),
+        { message: "Invalid booking ID" }
+      ),
+
+      status: z.enum(["confirmed", "completed", "cancelled"]),
+    });
+
+// Type for updating booking information
+export type UpdateBookingInput = z.infer<typeof updateBookingSchema>;
