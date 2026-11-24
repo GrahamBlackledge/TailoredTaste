@@ -37,7 +37,7 @@ export type CreateBookingInput = z.infer<typeof createBookingSchema>;
 
 
 
-//Editing existing booking schema
+
 export const updateBookingSchema = createBookingSchema
 
     .omit({ enquiryId: true })
@@ -52,5 +52,57 @@ export const updateBookingSchema = createBookingSchema
       status: z.enum(["confirmed", "completed", "cancelled"]),
     });
 
-// Type for updating booking information
+
 export type UpdateBookingInput = z.infer<typeof updateBookingSchema>;
+
+
+export const manualBookingSchema = createBookingSchema
+  .omit({ enquiryId: true })
+  .extend({
+
+    customerId: z.string().refine(
+      (id) =>
+        id === "new" ||
+        (
+          /^[1-9]\d{0,18}$/.test(id) &&
+          BigInt(id) <= BigInt("9223372036854775807")
+        ),
+      { message: "Select a valid customer" }
+    ),
+
+
+    customerName: z.string().trim().max(150),
+    customerEmail: z.string().trim().toLowerCase().max(255),
+    customerPhone: z.string().trim().max(30),
+
+  })
+  .superRefine((data, ctx) => {
+
+    if (data.customerId === "new") {
+
+      if (!data.customerName) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["customerName"],
+          message: "Customer name is required",
+
+        });
+      }
+
+
+      if (!z.email().safeParse(data.customerEmail).success) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["customerEmail"],
+          message: "Valid customer email required",
+
+
+        });
+      }
+    }
+  });
+  
+
+
+export type ManualBookingInput =
+  z.infer<typeof manualBookingSchema>;
