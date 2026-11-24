@@ -3,6 +3,7 @@ import  pool  from "../db";
 import { requireAdmin } from "../auth/admin-access";
 import type { CreateBookingInput } from "../validation/booking";
 import type { UpdateBookingInput } from "../validation/booking";
+import type { ManualBookingInput } from "../validation/booking";
 
 
 
@@ -244,7 +245,7 @@ export async function updateBooking(
       data.bookingId,
       data.eventDate,
       data.guestCount,
-      data.eventLocation || null,
+      data.eventLocation || null ,
       data.dietaryNotes || null,
       data.internalNotes || null,
       data.status,
