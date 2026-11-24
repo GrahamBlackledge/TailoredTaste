@@ -96,7 +96,7 @@ async function AdminDashboard() {
 
                         <div className="flex flex-col gap-3">
                             <button
-                                type="button" className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                                type="button" className="bg-gray-800 text-white p-3 rounded-lg hover:bg-green-900">
                                 Add Booking 
                             </button>
 

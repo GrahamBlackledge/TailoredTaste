@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { getCustomers } from "@/lib/queries/customers";
 import CustomerFields from "./CustomerFields";
+import { saveManualBooking } from "../actions";
+
 
 export default function ManualBookingPage() {
     return(
@@ -24,7 +26,7 @@ async function AddBookingForm() {
 
             <h1 className="text-3xl font-bold text-green-900 mt-6 mb-6">Add new Booking</h1>
 
-             <form className="border rounded-lg p-6 space-y-5">
+             <form action={saveManualBooking} className="border rounded-lg p-6 space-y-5">
 
                 <div>
                     <label htmlFor="customerId" className="bock font-medium mb-1">
