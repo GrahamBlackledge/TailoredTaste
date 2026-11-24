@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import { getCustomers } from "@/lib/queries/customers";
+import CustomerFields from "./CustomerFields";
 
 export default function ManualBookingPage() {
     return(
@@ -30,55 +31,11 @@ async function AddBookingForm() {
                         Customer
                     </label>
 
-                    <select 
-                        id="customerId"
-                        name="customerId"
-                        defaultValue=""
-                        className="w-full border rounded-lg p-3"
-                        required>
-                            <option value="" disabled> Select Customer</option>
-
-
-                            {customers.map((customer) => (
-                                <option key={customer.customerId} value={customer.customerId}>
-                                    {customer.fullName}  - {customer.email}
-
-                                </option>
-                            
-
-
-                            ))}
-
-                            <option value="new"> New Customer</option>
-
-
-                        </select>
+                    <CustomerFields customers={customers} />
 
                 </div>
 
-                <fieldset className="border rounded-lg p-4 space-y-3">
-                    <legend className="font-semibold px-2"> New customer Details</legend>
-                    <input
-                    type="text"
-                    name="customerName"
-                    maxLength={150}
-                    placeholder="Full name"
-                    className="w-full border rounded-lg p-3"
-                    />
-
-                    <input
-                    type="email"
-                    name="customerEmail"
-                    placeholder="Email address"
-                    className="w-full border rounded-lg p-3"/>
-
-                    <input
-                    type="tel"
-                    name="customerPhone"
-                    placeholder="Phone"
-                    className="w-full border rounded-lg p-3"/>
-                </fieldset>
-
+               
                     <div>
                         < label htmlFor="eventDate" className="block font-medium mb-1">
                             Event Date
@@ -150,13 +107,7 @@ async function AddBookingForm() {
                         Confirm Booking
                     </button>
 
-
-                            
-
-
-
-
-                
+                                       
 
 
             </form>
