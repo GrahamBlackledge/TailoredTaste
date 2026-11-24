@@ -7,6 +7,10 @@ import { createBookingSchema } from "@/lib/validation/booking";
 import { createBookingFromEnquiry } from "@/lib/queries/bookings";
 import { updateBookingSchema } from "@/lib/validation/booking";
 import { updateBooking } from "@/lib/queries/bookings";
+import { manualBookingSchema } from "@/lib/validation/booking";
+import { insertManualBooking } from "@/lib/queries/bookings";
+
+
 
 export async function createBooking(
     enquiryId: string,
@@ -80,3 +84,44 @@ export async function saveBookingChanges(
   
 }
 
+// server action / manual booking
+export async function saveManualBooking(formData: FormData) {
+
+
+    await requireAdmin();
+
+
+    const result = manualBookingSchema.safeParse({
+
+        customerId: formData.get("customerId"),
+
+        customerName: formData.get("customerName") ?? "",
+        customerEmail: formData.get("customerEmail") ?? "",
+        customerPhone: formData.get("customerPhone") ?? "",
+
+        eventDate: formData.get("eventDate"),
+        guestCount: formData.get("guestCount"),
+        eventLocation: formData.get("eventLocation"),
+
+        dietaryNotes: formData.get("dietaryNotes"),
+        internalNotes: formData.get("internalNotes") ?? "",
+
+    });
+
+
+    if (!result.success) {
+        console.error(result.error.flatten());
+        throw new Error("Invalid manual booking information");
+    }
+
+
+    const bookingId = await insertManualBooking(result.data);
+
+    
+    revalidatePath("/admin");
+    revalidatePath("/admin/bookings");
+    revalidatePath("/admin/calendar");
+
+
+    redirect(`/admin/bookings/${bookingId}`);
+}
