@@ -30,7 +30,7 @@ async function AddBookingForm() {
 
                 <div>
                     <label htmlFor="customerId" className="bock font-medium mb-1">
-                        Customer
+                        
                     </label>
 
                     <CustomerFields customers={customers} />
@@ -105,7 +105,7 @@ async function AddBookingForm() {
                      <button
 
                         type="submit"
-                        className="bg-green-800 text-white px-6 py-3 rounded-lg opacity-50">
+                        className="bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-900 cursor-pointer">
                         Confirm Booking
                     </button>
 

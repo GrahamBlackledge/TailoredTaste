@@ -95,10 +95,10 @@ async function AdminDashboard() {
                         </h2>
 
                         <div className="flex flex-col gap-3">
-                            <button
-                                type="button" className="bg-gray-800 text-white p-3 rounded-lg hover:bg-green-900">
+                            <Link
+                                href="/admin/bookings/manual" className="block bg-green-800 text-white p-3 rounded-lg hover:bg-green-900 text-left">
                                 Add Booking 
-                            </button>
+                            </Link>
 
                             <button
                                 type="button"className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">

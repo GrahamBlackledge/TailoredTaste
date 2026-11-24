@@ -257,6 +257,98 @@ export async function updateBooking(
 }
 
 
+export async function insertManualBooking(
+  data: ManualBookingInput
+): Promise<string> {
+
+
+  await requireAdmin();
+
+
+  const client = await pool.connect();
+
+  try {
+
+    await client.query("BEGIN");
+
+    let customerId: string;
+
+
+    if (data.customerId === "new") {
+
+      const customerResult = await client.query(
+        `INSERT INTO customer (
+          full_name,
+          email,
+          phone
+        )
+        VALUES ($1, $2, $3)
+        RETURNING customer_id::text AS "customerId"`,
+        [
+          data.customerName,
+          data.customerEmail,
+          data.customerPhone || null
+        ]
+      );
+
+      customerId = customerResult.rows[0].customerId;
+
+    } else {
+
+     
+      const customerResult = await client.query(
+        `SELECT customer_id
+         FROM customer
+         WHERE customer_id = $1`,
+        [data.customerId]
+      );
+
+      if (customerResult.rows.length === 0) {
+        throw new Error("Customer not found");
+      }
+
+      customerId = data.customerId;
+    }
+    const bookingResult = await client.query(
+      `INSERT INTO booking (
+        customer_id,
+        event_date,
+        guest_count,
+        event_location,
+        dietary_notes,
+        internal_notes,
+        status
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, 'confirmed')
+      RETURNING booking_id::text AS "bookingId"`,
+      [
+
+        customerId,
+        data.eventDate,
+        data.guestCount,
+        data.eventLocation || null,
+        data.dietaryNotes || null,
+        data.internalNotes || null
+      ]
+    );
+
+    await client.query("COMMIT");
+
+    return bookingResult.rows[0].bookingId;
+
+  } catch (error) {
+
+
+    await client.query("ROLLBACK");
+
+    throw error;
+
+  } finally {
+
+    client.release();
+  }
+}
+
     
 
 
