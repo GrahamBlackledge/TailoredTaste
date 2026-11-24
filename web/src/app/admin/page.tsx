@@ -48,227 +48,232 @@ async function AdminDashboard() {
 
     return (
         <div className="max-w-7xl mx-auto bg-white rounded-xl shadow p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div className="lg:col-span-2">
 
-            <h1 className="text-3xl font-bold text-green-900 mb-4">
-                Admin Dashboard
-            </h1>
+                    <h1 className="text-3xl font-bold text-green-900 mb-4">
+                        Admin Dashboard
+                    </h1>
 
-            <p className="mb-2">
-                Welcome, {admin.full_name}
-            </p>
+                    <p className="mb-2">
+                        Welcome, {admin.full_name}
+                    </p>
 
-            <p className="text-gray-500 mb-2">
-                {admin.email}
-            </p>
+                    <p className="text-gray-500 mb-2">
+                        {admin.email}
+                    </p>
 
-            <p className="text-gray-500 mb-6">
-                Role: {admin.role}
-            </p>
+                    <p className="text-gray-500 mb-6">
+                        Role: {admin.role}
+                    </p>
 
-            <p className="mb-8">
-                Tailored Taste administration dashboard.
-            </p>
+                    <p className="mb-8">
+                        Tailored Taste administration dashboard.
+                    </p>
 
-            {/* Sign out and return to login */}
-            <form
-                action={async () => {
-                    "use server";
-                    await signOut({ redirectTo: "/admin/login" });
-                }}
-            >
-                <button
-                    type="submit"
-                    className="bg-green-900 text-white px-5 py-3 rounded-lg hover:bg-green-800 cursor-pointer"
-                >
-                    Sign Out
-                </button>
-            </form>
-
-            {/* summary cards*/}
-            <section className="mt-10">
-                <h2 className="text-2xl font-bold text-green-900 mb-6">
-                    Enquiry Overview
-                </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-                    <div className="bg-gray-50 border rounded-lg p-5">
-                        <h3 className="text-sm text-gray-600">
-                            Total Enquiries
-                        </h3>
-                        <p className="text-3xl font-bold text-green-900 mt-2">
-                            {summary.totalEnquiries}
-                        </p>
-                    </div>
-                    <div className="bg-gray-50 border rounded-lg p-5">
-                        <h3 className="text-sm text-gray-600">
-                            New Enquiries
-                        </h3>
-                        <p className="text-3xl font-bold text-green-900 mt-2">
-                            {summary.newEnquiries}
-                        </p>
-                    </div>
-                    <div className="bg-gray-50 border rounded-lg p-5">
-                        <h3 className="text-sm text-gray-600">
-                            Pending Enquiries
-                        </h3>
-                        <p className="text-3xl font-bold text-green-900 mt-2">
-                            {pendingEnquiries}
-                        </p>
-                    </div>
-                    <div className="bg-gray-50 border rounded-lg p-5">
-                        <h3 className="text-sm text-gray-600">
-                            Quoted Enquiries
-                        </h3>
-                        <p className="text-3xl font-bold text-green-900 mt-2">
-                            {summary.quotedEnquiries}
-                        </p>
+                    {/* Sign out and return to login */}
+                    <form
+                        action={async () => {
+                            "use server";
+                            await signOut({ redirectTo: "/admin/login" });
+                        }}
+                    >
+                        <button
+                            type="submit"
+                            className="bg-green-900 text-white px-5 py-3 rounded-lg hover:bg-green-800 cursor-pointer"
+                        >
+                            Sign Out
+                        </button>
+                    </form>
                     </div>
 
-                </div>
+                    {/* Quck action buttons  */}
+                    <aside className="bg-white border rounded-lg p-5 h-fit w-full max-w-sm lg:justify-self-end">
 
-
-
-            </section>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-                <div className="lg:col-span-2 min-w-0 space-y-6">
-
-            
-
-                            <section className="mt-10">
-
-                                <h2 className="text-2xl font-bold text-green-900 mb-2">
-                                    Recent Enquiries 
-                                </h2>
-
-                                <p className="text-gray-500 mb-6">
-                                    {enquiries.length} recent enquiries 
-                                </p>
-
-                                {enquiries.length === 0 ? (
-                                    <p className="text-gray-500">
-                                        No Enquirires
-                                    </p>
-                                    ) : (
-                                        <div className="overflow-x-auto border border-gray-200 rounded-lg">
-                                            <table className="w-full text-left text-sm">
-
-                                                <thead className="bg-gray-100 text-gray-700">
-                                                    <tr>
-                                                    <th className="px-5 py-3">ID</th>
-                                                    <th className="px-5 py-3">Customer</th>
-                                                    <th className="px-5 py-3">Email</th>
-                                                    <th className="px-5 py-3">Event Date </th>
-                                                    <th className="px-5 py-3"> Guests</th>
-                                                    <th className="px-5 py-3">Status</th>
-                                                    <th className="px-5 py-3">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                            
-                                                    {enquiries.map((enquiry) => (
-
-                                                    <tr
-                                                        key={enquiry.enquiryId}
-                                                        className="border-t border-gray-200 hover:bg-gray-50">
-                                                    
-
-                                                        <td className="px-5 py-4">
-                                                        {enquiry.enquiryId}
-                                                        </td>
-
-                                                        <td className="px-5 py-4 font-medium">
-                                                        {enquiry.customerName}
-                                                        </td>
-
-                                                        <td className="px-5 py-4">
-                                                        {enquiry.customerEmail}
-                                                        </td>
-
-                                                        <td className="px-5 py-4">
-                                                        {enquiry.eventDate}
-                                                        </td>
-
-                                                        <td className="px-5 py-4">
-                                                        {enquiry.guestCount}
-                                                        </td>
-
-                                                        <td className="px-5 py-4">
-                                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
-                                                            {enquiry.status ?? "Not set"}
-                                                        </span>
-                                                        </td>
-                                                        <td className="px-5 py-4">
-                                                            <Link
-                                                                href={`/admin/enquiries/${enquiry.enquiryId}`}
-                                                                className="text-green-900 font-semibold hover:underline">View</Link>
-                                                        </td>
-
-                                                    </tr>
-
-                                                    ))}
-                                                </tbody>
-
-                                                </table>
-
-                                            </div>
-
-                                            )}
-                                        
-                                        
-                            </section>
-            <section className="mt-8 bg-white border rounded-lg p-5">
-
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold text-green-900">Booking Calendar
+                        <h2 className="text-xl font-bold text-green-900 mb-5">
+                            Quick Actions
                         </h2>
 
-                        <Link href="/admin/calendar" className="text-green-800 underline text-sm">Full Calendar</Link>
+                        <div className="flex flex-col gap-3">
+                            <button
+                                type="button" className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                                Add Booking 
+                            </button>
+
+                            <button
+                                type="button"className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                                Upload / Manage Menus
+                            </button>
+
+                            <Link
+                                href="/admin/bookings" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
+                                View Bookings
+                            </Link>
+
+                            <Link
+                                href="/admin/calendar" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
+                                Booking Calendar
+                            </Link>
+
+                        </div>
+
+                    </aside>
                     </div>
 
-                    <div className="max-w-xl">
-                        <BookingCalendar events={calendarEvents} compact />
-                    </div>
+                    {/* summary cards*/}
+                    <section className="mt-10">
+                        <h2 className="text-2xl font-bold text-green-900 mb-6">
+                            Enquiry Overview
+                        </h2>
 
-                </section>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+                            <div className="bg-gray-50 border rounded-lg p-5">
+                                <h3 className="text-sm text-gray-600">
+                                    Total Enquiries
+                                </h3>
+                                <p className="text-3xl font-bold text-green-900 mt-2">
+                                    {summary.totalEnquiries}
+                                </p>
+                            </div>
+                            <div className="bg-gray-50 border rounded-lg p-5">
+                                <h3 className="text-sm text-gray-600">
+                                    New Enquiries
+                                </h3>
+                                <p className="text-3xl font-bold text-green-900 mt-2">
+                                    {summary.newEnquiries}
+                                </p>
+                            </div>
+                            <div className="bg-gray-50 border rounded-lg p-5">
+                                <h3 className="text-sm text-gray-600">
+                                    Pending Enquiries
+                                </h3>
+                                <p className="text-3xl font-bold text-green-900 mt-2">
+                                    {pendingEnquiries}
+                                </p>
+                            </div>
+                            <div className="bg-gray-50 border rounded-lg p-5">
+                                <h3 className="text-sm text-gray-600">
+                                    Quoted Enquiries
+                                </h3>
+                                <p className="text-3xl font-bold text-green-900 mt-2">
+                                    {summary.quotedEnquiries}
+                                </p>
+                            </div>
+
+                        </div>
 
 
-        </div>
 
-                <aside className="bg-white border rounded-lg p-5 h-fit">
+                    </section>
 
-                <h2 className="text-xl font-bold text-green-900 mb-5">
-                    Quick Actions
-                </h2>
+                    
 
-                <div className="flex flex-col gap-3">
-                    <button
-                        type="button" className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
-                        Add Booking 
-                    </button>
+                    
 
-                    <button
-                        type="button"className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
-                        Upload / Manage Menus
-                    </button>
+                                    <section className="mt-10">
 
-                    <Link
-                        href="/admin/bookings" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
-                        View Bookings
-                    </Link>
+                                        <h2 className="text-2xl font-bold text-green-900 mb-2">
+                                            Recent Enquiries 
+                                        </h2>
 
-                    <Link
-                        href="/admin/calendar" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
-                        Booking Calendar
-                    </Link>
+                                        <p className="text-gray-500 mb-6">
+                                            {enquiries.length} recent enquiries 
+                                        </p>
+
+                                        {enquiries.length === 0 ? (
+                                            <p className="text-gray-500">
+                                                No Enquirires
+                                            </p>
+                                            ) : (
+                                                <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                                                    <table className="w-full text-left text-sm">
+
+                                                        <thead className="bg-gray-100 text-gray-700">
+                                                            <tr>
+                                                            <th className="px-5 py-3">ID</th>
+                                                            <th className="px-5 py-3">Customer</th>
+                                                            <th className="px-5 py-3">Email</th>
+                                                            <th className="px-5 py-3">Event Date </th>
+                                                            <th className="px-5 py-3"> Guests</th>
+                                                            <th className="px-5 py-3">Status</th>
+                                                            <th className="px-5 py-3">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                    
+                                                            {enquiries.map((enquiry) => (
+
+                                                            <tr
+                                                                key={enquiry.enquiryId}
+                                                                className="border-t border-gray-200 hover:bg-gray-50">
+                                                            
+
+                                                                <td className="px-5 py-4">
+                                                                {enquiry.enquiryId}
+                                                                </td>
+
+                                                                <td className="px-5 py-4 font-medium">
+                                                                {enquiry.customerName}
+                                                                </td>
+
+                                                                <td className="px-5 py-4">
+                                                                {enquiry.customerEmail}
+                                                                </td>
+
+                                                                <td className="px-5 py-4">
+                                                                {enquiry.eventDate}
+                                                                </td>
+
+                                                                <td className="px-5 py-4">
+                                                                {enquiry.guestCount}
+                                                                </td>
+
+                                                                <td className="px-5 py-4">
+                                                                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                                                                    {enquiry.status ?? "Not set"}
+                                                                </span>
+                                                                </td>
+                                                                <td className="px-5 py-4">
+                                                                    <Link
+                                                                        href={`/admin/enquiries/${enquiry.enquiryId}`}
+                                                                        className="text-green-900 font-semibold hover:underline">View</Link>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            ))}
+                                                        </tbody>
+
+                                                        </table>
+
+                                                    </div>
+
+                                                    )}
+                                                
+                                                
+                                    </section>
+                    <section className="mt-8 bg-white border rounded-lg p-5">
+
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="text-xl font-bold text-green-900">Booking Calendar
+                                </h2>
+
+                                <Link href="/admin/calendar" className="text-green-800 underline text-sm">Full Calendar</Link>
+                            </div>
+
+                            <div className="max-w-xl">
+                                <BookingCalendar events={calendarEvents} compact />
+                            </div>
+
+                        </section>
+
 
                 </div>
 
-            </aside>
-        </div>
-    </div>
+                        
+                
 
 
-    );
-}
+            );
+        }
