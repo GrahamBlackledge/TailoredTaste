@@ -47,7 +47,7 @@ async function AdminDashboard() {
     
 
     return (
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
+        <div className="max-w-7xl mx-auto bg-white rounded-xl shadow p-8">
 
             <h1 className="text-3xl font-bold text-green-900 mb-4">
                 Admin Dashboard
@@ -131,92 +131,93 @@ async function AdminDashboard() {
 
             </section>
 
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+                <div className="lg:col-span-2 min-w-0 space-y-6">
 
-
-            {/* Enquiry dashboard*/}
-
-            <section className="mt-10">
-
-                <h2 className="text-2xl font-bold text-green-900 mb-2">
-                    Recent Enquiries 
-                </h2>
-
-                <p className="text-gray-500 mb-6">
-                    {enquiries.length} recent enquiries 
-                </p>
-
-                {enquiries.length === 0 ? (
-                    <p className="text-gray-500">
-                        No Enquirires
-                    </p>
-                    ) : (
-                         <div className="overflow-x-auto border border-gray-200 rounded-lg">
-                             <table className="w-full text-left text-sm">
-
-                                <thead className="bg-gray-100 text-gray-700">
-                                    <tr>
-                                    <th className="px-5 py-3">ID</th>
-                                    <th className="px-5 py-3">Customer</th>
-                                    <th className="px-5 py-3">Email</th>
-                                    <th className="px-5 py-3">Event Date </th>
-                                    <th className="px-5 py-3"> Guests</th>
-                                    <th className="px-5 py-3">Status</th>
-                                    <th className="px-5 py-3">Action</th>
-                                      </tr>
-                                </thead>
-                                 <tbody>
             
-                                    {enquiries.map((enquiry) => (
 
-                                    <tr
-                                        key={enquiry.enquiryId}
-                                        className="border-t border-gray-200 hover:bg-gray-50">
-                                    
+                            <section className="mt-10">
 
-                                        <td className="px-5 py-4">
-                                        {enquiry.enquiryId}
-                                        </td>
+                                <h2 className="text-2xl font-bold text-green-900 mb-2">
+                                    Recent Enquiries 
+                                </h2>
 
-                                        <td className="px-5 py-4 font-medium">
-                                        {enquiry.customerName}
-                                        </td>
+                                <p className="text-gray-500 mb-6">
+                                    {enquiries.length} recent enquiries 
+                                </p>
 
-                                        <td className="px-5 py-4">
-                                        {enquiry.customerEmail}
-                                        </td>
+                                {enquiries.length === 0 ? (
+                                    <p className="text-gray-500">
+                                        No Enquirires
+                                    </p>
+                                    ) : (
+                                        <div className="overflow-x-auto border border-gray-200 rounded-lg">
+                                            <table className="w-full text-left text-sm">
 
-                                        <td className="px-5 py-4">
-                                        {enquiry.eventDate}
-                                        </td>
+                                                <thead className="bg-gray-100 text-gray-700">
+                                                    <tr>
+                                                    <th className="px-5 py-3">ID</th>
+                                                    <th className="px-5 py-3">Customer</th>
+                                                    <th className="px-5 py-3">Email</th>
+                                                    <th className="px-5 py-3">Event Date </th>
+                                                    <th className="px-5 py-3"> Guests</th>
+                                                    <th className="px-5 py-3">Status</th>
+                                                    <th className="px-5 py-3">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                            
+                                                    {enquiries.map((enquiry) => (
 
-                                        <td className="px-5 py-4">
-                                        {enquiry.guestCount}
-                                        </td>
+                                                    <tr
+                                                        key={enquiry.enquiryId}
+                                                        className="border-t border-gray-200 hover:bg-gray-50">
+                                                    
 
-                                        <td className="px-5 py-4">
-                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
-                                            {enquiry.status ?? "Not set"}
-                                        </span>
-                                        </td>
-                                        <td className="px-5 py-4">
-                                            <Link
-                                                href={`/admin/enquiries/${enquiry.enquiryId}`}
-                                                className="text-green-900 font-semibold hover:underline">View</Link>
-                                        </td>
+                                                        <td className="px-5 py-4">
+                                                        {enquiry.enquiryId}
+                                                        </td>
 
-                                    </tr>
+                                                        <td className="px-5 py-4 font-medium">
+                                                        {enquiry.customerName}
+                                                        </td>
 
-                                    ))}
-                                </tbody>
+                                                        <td className="px-5 py-4">
+                                                        {enquiry.customerEmail}
+                                                        </td>
 
-                                </table>
+                                                        <td className="px-5 py-4">
+                                                        {enquiry.eventDate}
+                                                        </td>
 
-                            </div>
+                                                        <td className="px-5 py-4">
+                                                        {enquiry.guestCount}
+                                                        </td>
 
-                            )}
-                          
-                        
-            </section>
+                                                        <td className="px-5 py-4">
+                                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">
+                                                            {enquiry.status ?? "Not set"}
+                                                        </span>
+                                                        </td>
+                                                        <td className="px-5 py-4">
+                                                            <Link
+                                                                href={`/admin/enquiries/${enquiry.enquiryId}`}
+                                                                className="text-green-900 font-semibold hover:underline">View</Link>
+                                                        </td>
+
+                                                    </tr>
+
+                                                    ))}
+                                                </tbody>
+
+                                                </table>
+
+                                            </div>
+
+                                            )}
+                                        
+                                        
+                            </section>
             <section className="mt-8 bg-white border rounded-lg p-5">
 
                     <div className="flex justify-between items-center mb-4">
@@ -233,9 +234,41 @@ async function AdminDashboard() {
                 </section>
 
 
-
-
-
         </div>
+
+                <aside className="bg-white border rounded-lg p-5 h-fit">
+
+                <h2 className="text-xl font-bold text-green-900 mb-5">
+                    Quick Actions
+                </h2>
+
+                <div className="flex flex-col gap-3">
+                    <button
+                        type="button" className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                        Add Booking 
+                    </button>
+
+                    <button
+                        type="button"className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                        Upload / Manage Menus
+                    </button>
+
+                    <Link
+                        href="/admin/bookings" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
+                        View Bookings
+                    </Link>
+
+                    <Link
+                        href="/admin/calendar" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
+                        Booking Calendar
+                    </Link>
+
+                </div>
+
+            </aside>
+        </div>
+    </div>
+
+
     );
 }
