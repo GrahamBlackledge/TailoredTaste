@@ -2,10 +2,12 @@
 import { Suspense } from "react";
 import { auth, signOut } from "@/auth";
 import Link from "next/link";
+import BookingCalendar from "./calendar/Calendar";
 
 
 import { requireAdmin } from "@/lib/auth/admin-access";
 import { getEnquiries, getEnquirySummary } from "@/lib/queries/enquiries";
+import { getBookings } from "@/lib/queries/bookings";
 
 export default function AdminPage() {
     return (
@@ -28,7 +30,19 @@ async function AdminDashboard() {
     // get summary of enquiries
     const summary = await getEnquirySummary();
     const pendingEnquiries = summary.newEnquiries + summary.reviewingEnquiries;
+   
+    const bookings = await getBookings();
 
+      //Mini calendar import
+    const calendarEvents = bookings
+        .filter((booking) => booking.status === "confirmed")
+        .map((booking) => ({
+            id: booking.bookingId,
+            title: booking.customerName,
+            start: booking.eventDate,
+            allDay: true,
+            url: `/admin/bookings/${booking.bookingId}`,
+        }));
 
     
 
@@ -203,6 +217,22 @@ async function AdminDashboard() {
                           
                         
             </section>
+            <section className="mt-8 bg-white border rounded-lg p-5">
+
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-xl font-bold text-green-900">Booking Calendar
+                        </h2>
+
+                        <Link href="/admin/calendar" className="text-green-800 underline text-sm">Full Calendar</Link>
+                    </div>
+
+                    <div className="max-w-xl">
+                        <BookingCalendar events={calendarEvents} compact />
+                    </div>
+
+                </section>
+
+
 
 
 

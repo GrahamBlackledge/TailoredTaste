@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { getBookings } from "@/lib/queries/bookings";
+import BookingCalendar from "../calendar/Calendar";
 
 export default function BookingsPage() {
   return (
@@ -13,6 +14,19 @@ export default function BookingsPage() {
 async function BookingsList() {
   // Retrieve bookings from PostgreSQL
   const bookings = await getBookings();
+
+    //Mini calendar import
+    const calendarEvents = bookings
+        .filter((booking) => booking.status === "confirmed")
+        .map((booking) => ({
+            id: booking.bookingId,
+            title: booking.customerName,
+            start: booking.eventDate,
+            allDay: true,
+            url: `/admin/bookings/${booking.bookingId}`,
+        }));
+
+
   return (
      <main className="max-w-6xl mx-auto p-8">
         <Link href={"/admin"} className="text-green-800 underline"> Back to Dashboard</Link>
@@ -38,7 +52,7 @@ async function BookingsList() {
                             <td className="p-4">{booking.customerName}</td>
                             <td className="p-4">{booking.eventDate}</td>
                             <td className="p-4">{booking.guestCount}</td>
-                            <td className="p-4">{booking.customerName}</td>
+                            <td className="p-4">{booking.status}</td>
                             <td className="p-4">
                                 <Link href={`/admin/bookings/${booking.bookingId}`}
                                 className="text-green-800 underline">

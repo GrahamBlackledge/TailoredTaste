@@ -20,20 +20,36 @@ type CalendarEvent = {
 
 export default function BookingCalendar({
   events,
+  compact = false,
 }: {
   events: CalendarEvent[];
+  compact?: boolean;
 }) {
   return (
     <FullCalendar
       plugins={[themePlugin, dayGridPlugin]}
       initialView="dayGridMonth"
-      headerToolbar={{
-        left: "prev,next today",
-        center: "title",
-        right: "",
-      }}
-      events={events}
-      height="auto"
+      headerToolbar={
+        compact ? {
+           left: "prev",
+              center: "title",
+              right: "next",
+            }
+          : {
+              left: "prev,next today",
+              center: "title",
+              right: "",
+            }
+      
+
+        }
+          events={events}
+        height={compact ? 360 : "auto"}
+        dayHeaderFormat={
+          compact ? { weekday: "narrow" } : { weekday: "short" }
+        }
+        dayMaxEvents={compact ? 1 : false}
+        eventDisplay={compact ? "list-item" : "auto"}
     />
   );
 }
