@@ -7,8 +7,6 @@ import { randomUUID } from "node:crypto";
 import pool from "@/lib/db";
 import { requireAdmin } from "@/lib/auth/admin-access";
 
-export const runtime = "nodejs";
-
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
@@ -17,7 +15,7 @@ export async function POST(request: Request) {
  
   await requireAdmin();
 
- 
+ // checks request length 
   const contentLength = Number(
     request.headers.get("content-length") ?? 0
   );
@@ -29,6 +27,8 @@ export async function POST(request: Request) {
     );
   }
 
+
+  // reads form data, turns to variable
    let formData: FormData;
 
   try {
@@ -40,10 +40,12 @@ export async function POST(request: Request) {
     );
   }
 
+  // extract package ID
   const packageId = formData.get("packageId");
   const pdf = formData.get("pdf");
 
 
+  //package ID validation
   if (
     typeof packageId !== "string" ||
     !/^[1-9]\d{0,18}$/.test(packageId) ||
@@ -55,7 +57,7 @@ export async function POST(request: Request) {
     );
   }
 
-
+  //Checks if file object
   if (!(pdf instanceof File)) {
     return NextResponse.json(
       { error: "No PDF file selected" },
@@ -63,6 +65,7 @@ export async function POST(request: Request) {
     );
   }
 
+  //Vlaidate size
   if (pdf.size === 0 || pdf.size > MAX_FILE_SIZE) {
     return NextResponse.json(
       { error: "PDF must be between 1 byte and 10 MB" },
@@ -70,6 +73,7 @@ export async function POST(request: Request) {
     );
   }
 
+  //Validates extension
   if (
     !pdf.name.toLowerCase().endsWith(".pdf") ||
     (pdf.type && pdf.type !== "application/pdf")
@@ -81,6 +85,7 @@ export async function POST(request: Request) {
   }
 
 
+  //Coverts to buffer for inspection
   const buffer = Buffer.from(await pdf.arrayBuffer());
 
   if (buffer.subarray(0, 5).toString("ascii") !== "%PDF-") {
@@ -90,10 +95,10 @@ export async function POST(request: Request) {
     );
   }
 
-
+// give unique id
   const fileName = `${randomUUID()}.pdf`;
 
-
+ // where to upload
   const uploadDir =
     process.env.MENU_UPLOAD_DIR ??
     path.join(process.cwd(), "storage", "menus");
@@ -109,7 +114,7 @@ export async function POST(request: Request) {
       mode: 0o700,
     });
 
-   
+   // save to server
     await writeFile(filePath, buffer, {
       flag: "wx",
       mode: 0o600,
@@ -117,7 +122,7 @@ export async function POST(request: Request) {
 
     fileSaved = true;
 
-
+// update database
     const result = await pool.query(
       `UPDATE menu_package
        SET menu_file_path = $1
@@ -126,6 +131,7 @@ export async function POST(request: Request) {
       [fileName, packageId]
     );
 
+    //Handle if package doesn't exist
     if (result.rowCount === 0) {
       await unlink(filePath);
       return NextResponse.json(
@@ -133,7 +139,7 @@ export async function POST(request: Request) {
         { status: 404 }
       );
     }
-
+// error handling
   } catch (error) {
 
    
