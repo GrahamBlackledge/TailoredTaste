@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { getMenuPackages } from "@/lib/queries/menus";     
+import { getMenuPackages } from "@/lib/queries/menus";  
+import { createMenuPackage } from "./actions";   
 
 
 export default function AdminMenusPage() {
@@ -72,7 +73,7 @@ async function MenuManagement() {
                     Create Menu Package
                 </h2>
 
-                <form className="space-y-4">
+                <form action={createMenuPackage} className="space-y-4">
 
                     <div>
                         <label className="block mb-2" htmlFor="packageName">
