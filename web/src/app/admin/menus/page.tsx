@@ -67,6 +67,79 @@ async function MenuManagement() {
                     </p>
                 )}
             </div>
+            <section className="border rounded-lg p-6 mb-8">
+                <h2 className="text-xl font-bold text-green-900 mb-5">
+                    Create Menu Package
+                </h2>
+
+                <form className="space-y-4">
+
+                    <div>
+                        <label className="block mb-2" htmlFor="packageName">
+                            Package Name
+                        </label>
+                        <input
+                        id="packageName"
+                        name="packageName"
+                        type="text"
+                        maxLength={150}
+                        required
+                        className="-full border rounded-lg p-3"
+                        placeholder="Package name"/>
+
+                    </div>
+                    <div>
+                        <label className="block mb-2" htmlFor="description">
+                            Description
+                        </label>
+                        <textarea
+                        id="description"
+                        name="description"
+                        rows={3}
+                        className="w-full border rounded-lg p-3"
+                        placeholder="Description"/>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block mb-2" htmlFor="pricePerPerson">
+                                Price Per person 
+                            </label>
+                            <input
+                            id="pricePerPerson"
+                            name="pricePerPerson"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            required
+                            className="w-full border rounded-lg p-3"/>
+
+                        </div>
+                        <div>
+                            <label className="block mb-2" htmlFor="minimumGuests">
+                                Minimum Guests
+                            </label>
+                            < input
+                            id="minimumGuests"
+                            name="minimumGuests"
+                            type="number"
+                            min="1"
+                            step="1"
+                            required
+                            className="w-full border rounded-lg p-3"/>
+
+                        </div>
+
+                    </div>
+                    < button 
+                    type="submit" className="bg-green-900 text-white px-5 py-3 rounded-lg hover:bg-green-800 cursor-pointer">
+                        Create Package
+                    </button>
+                </form>
+
+            </section>
+
+
 
             <section className="border rounded-lg p-6 mb-8 mt-8">
                 <h2 className="text-xl font-bold text-green-900 mb-5">
