@@ -1,5 +1,7 @@
 import MenuCard from "@/components/MenuCard";
 import Link from "next/link";
+import { Suspense } from "react";
+import { getPublicMenuPackages } from "@/lib/queries/menus";
 
 export default function Menus() {
     return (
@@ -14,25 +16,49 @@ export default function Menus() {
                 </p>
 
             </section>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+           
 
-                
-        <MenuCard
-          title="Three-Course Dining"
-          description="lorem ipsum dolor sit amet."
-        />
-
-        <MenuCard
-          title="Sharing-Style Menu"
-          description="lorem ipsum dolor sit amet."
-        />
-
-        <MenuCard
-          title="Canapés & Small Bites"
-          description="lorem ipsum dolor sit amet."
-        />
+             <Suspense fallback={<p>Loading menus...</p>}>
+                <PublicMenuCards />
+             </Suspense>   
+       
 
       </div>
-    </div>
+    
   );
+}
+
+
+async function PublicMenuCards() {
+
+    // Retrieve active menu packages 
+    const menus = await getPublicMenuPackages();
+
+      if (menus.length === 0) {
+        return (
+            <p className="text-gray-500">
+                No menus currently available.
+            </p>
+        );
+    }
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {menus.map((menu) => (
+            <MenuCard
+              key={menu.packageId}
+              title={menu.packageName}
+              description={menu.description ?? ""}
+              fileUrl={
+
+                menu.menuFilePath
+                 ? `/api/menus/${menu.packageId}/pdf`
+                : undefined
+
+                 }/>
+
+            ))}
+      
+        </div>
+    );
 }

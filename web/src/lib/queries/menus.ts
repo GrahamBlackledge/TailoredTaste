@@ -27,3 +27,30 @@ export async function getMenuPackages(): Promise<MenuPackage[]> {
 
     return result.rows;
 }
+
+// public menu package display
+export type PublicMenuPackage = {
+    packageId: string;
+    packageName: string;
+    description: string | null;
+    menuFilePath: string | null;
+};
+
+
+export async function getPublicMenuPackages(): Promise<PublicMenuPackage[]> {
+
+    const result = await pool.query<PublicMenuPackage>(
+
+        `SELECT
+        
+            package_id::text AS "packageId",
+            package_name AS "packageName",
+            description,
+            menu_file_path AS "menuFilePath"
+         FROM menu_package
+         WHERE is_active = TRUE
+         ORDER BY package_id ASC`
+    );
+
+    return result.rows;
+}
