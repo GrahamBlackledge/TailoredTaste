@@ -67,7 +67,7 @@ async function MenuManagement() {
                     </p>
                 )}
             </div>
-            <section className="border rounded-lg p-6 mb-8">
+            <section className="border rounded-lg p-6 mt-8 mb-8">
                 <h2 className="text-xl font-bold text-green-900 mb-5">
                     Create Menu Package
                 </h2>
