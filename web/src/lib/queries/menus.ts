@@ -1,5 +1,7 @@
 import pool from "../db"
 import { requireAdmin } from "../auth/admin-access"
+import type { CreateMenuPackageInput } from "../validation/menu";
+
 
 export type MenuPackage = {
     packageId: string;
@@ -42,7 +44,7 @@ export async function getPublicMenuPackages(): Promise<PublicMenuPackage[]> {
     const result = await pool.query<PublicMenuPackage>(
 
         `SELECT
-        
+
             package_id::text AS "packageId",
             package_name AS "packageName",
             description,
@@ -53,4 +55,33 @@ export async function getPublicMenuPackages(): Promise<PublicMenuPackage[]> {
     );
 
     return result.rows;
+}
+
+export async function insertMenuPackage(
+    data: CreateMenuPackageInput
+): Promise<string> {
+
+    await requireAdmin();
+
+    const result = await pool.query<{
+        packageId: string;}>(
+            `INSERT INTO menu_package (
+            package_name,
+            description,
+            price_per_person,
+            minimum_guests,
+            is_active
+            )   
+            VALUES ($1, $2, $3, $4, TRUE)
+            RETURNING  package_id::text AS "packageId`,
+            [
+                data.packageName,
+                data.description || null,
+                data.pricePerPerson,
+                data.minimumGuests,
+
+
+            ]
+        );
+        return result.rows[0].packageId; 
 }
