@@ -38,6 +38,7 @@ async function MenuManagement() {
                             <th className="p-4">Package</th>
                             <th className="p-4">Status</th>
                             <th className="p-4">Active</th>
+                            <th className="p-4">Actions</th>
                         </tr>
                     </thead>
 
@@ -54,6 +55,12 @@ async function MenuManagement() {
 
                                 <td className="p-4">
                                     {menu.isActive ? "Yes" : "No"}
+                                </td>
+                                <td className="p-4">
+                                    <Link href={`/admin/menus/${menu.packageId}/edit`}
+                                    className="text-green-800 font-semibold hover:underline">
+                                        Edit
+                                    </Link>
                                 </td>
 
                             </tr>
