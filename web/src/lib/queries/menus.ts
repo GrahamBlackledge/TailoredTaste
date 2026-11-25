@@ -20,7 +20,7 @@ export async function getMenuPackages(): Promise<MenuPackage[]> {
             menu_file_path AS "menuFilePath",
             is_active AS "isActive"
         FROM menu_package
-        ORDER BY pack_name ASC
+        ORDER BY package_name ASC
                         `
 
     );
