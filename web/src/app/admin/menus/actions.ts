@@ -8,6 +8,7 @@ import { createMenuPackageSchema } from "@/lib/validation/menu";
 import { insertMenuPackage } from "@/lib/queries/menus";
 import { updateMenuPackageSchema } from "@/lib/validation/menu";
 import { updateMenuPackage } from "@/lib/queries/menus";
+import { toggleMenuPackageActive} from "@/lib/queries/menus";
 
 
 
@@ -71,5 +72,33 @@ export async function saveMenuPackageChanges(formData: FormData) {
       redirect("/admin/menus?updated=1");
 
 
+
+}
+
+export async function changeMenuPackageStatus(formData : FormData) {
+
+    await requireAdmin();
+
+    const result = updateMenuPackageSchema.shape.packageId.safeParse(
+        formData.get("packageId")
+    );
+    if (!result.success) {
+        throw new Error("Invalid package Id");
+
+    }
+
+    const packageId = result.data;
+
+    const updated = await toggleMenuPackageActive(packageId);
+    if (!updated) {
+        throw new Error("Menu packge not found");
+
+    }
+
+    revalidatePath("/admin/menus");
+    revalidatePath("/menus");
+    revalidatePath(`/admin/menus/${packageId}/edit`);
+
+    redirect(`/admin/menus/${packageId}/edit`);
 
 }

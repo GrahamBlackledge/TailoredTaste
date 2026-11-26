@@ -145,3 +145,20 @@ export async function getMenuPackageById(
 
   return result.rowCount === 1;
 }
+
+export async function toggleMenuPackageActive(
+    packageId: string
+): Promise<boolean> {
+    await requireAdmin();
+
+    const result = await pool.query(
+        `UPDATE menu_package
+        Set is_active = NOT is_active
+        WHERE package_id = $1
+        RETURNING package_id`,
+        [packageId]
+    );
+
+    return result.rowCount === 1;
+}
+

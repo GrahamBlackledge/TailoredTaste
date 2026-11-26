@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getMenuPackageById } from "@/lib/queries/menus"
 import { saveMenuPackageChanges } from "../../actions";
+import { changeMenuPackageStatus } from "../../actions";
 
 
 type Props = {
@@ -126,6 +127,28 @@ async function EditMenuContent({ params }: Props) {
         </button>
 
       </form>
+      <form action={changeMenuPackageStatus}  className="mt-6">
+
+        <input
+        type="hidden"
+        name="packageId"
+        value={menu.packageId} />
+
+        <button
+        type="submit" className={`px-6 py-3 rounded-lg text-white cursor-pointer ${
+            menu.isActive 
+            ? "bg-red-700 hover:bg-red-800" : "bg-green-800 hover:bg-green-900"}
+            `}>
+                {menu.isActive
+                ? " Deactivate package"
+                :   "Activate package"}
+
+            </button>
+
+
+
+      </form>
+
     </main>
   );
 }

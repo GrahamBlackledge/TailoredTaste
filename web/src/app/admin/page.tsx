@@ -100,10 +100,10 @@ async function AdminDashboard() {
                                 Add Booking 
                             </Link>
 
-                            <button
-                                type="button"className="bg-gray-200 text-gray-500 p-3 rounded-lg text-left">
+                            <Link
+                                href="/admin/menus"className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
                                 Upload / Manage Menus
-                            </button>
+                            </Link>
 
                             <Link
                                 href="/admin/bookings" className="bg-green-800 text-white p-3 rounded-lg hover:bg-green-900">
