@@ -24,3 +24,19 @@ export const createMenuPackageSchema = z.object({
 
 export type CreateMenuPackageInput = 
 z.infer<typeof createMenuPackageSchema>;
+
+
+export const updateMenuPackageSchema =
+  createMenuPackageSchema.extend({
+
+    packageId: z.string().refine(
+      (id) =>
+        /^[1-9]\d{0,18}$/.test(id) &&
+        BigInt(id) <= BigInt("9223372036854775807"),
+      { message: "Invalid package ID" }
+    ),
+
+  });
+
+export type UpdateMenuPackageInput =
+  z.infer<typeof updateMenuPackageSchema>;

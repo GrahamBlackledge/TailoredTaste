@@ -2,6 +2,8 @@ import { Suspense } from "react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getMenuPackageById } from "@/lib/queries/menus"
+import { saveMenuPackageChanges } from "../../actions";
+
 
 type Props = {
     params: Promise<{ id: string}>;
@@ -45,7 +47,7 @@ async function EditMenuContent({ params }: Props) {
         Edit Menu Package
       </h1>
 
-      <form className="border rounded-lg p-6 space-y-5">
+      <form  action={saveMenuPackageChanges} className="border rounded-lg p-6 space-y-5">
 
         <input
           type="hidden"
@@ -119,8 +121,7 @@ async function EditMenuContent({ params }: Props) {
 
         <button
           type="submit"
-          disabled
-          className="bg-gray-300 text-gray-600 px-6 py-3 rounded-lg">
+          className="bg-green-900 text-white px-6 py-3 rounded-lg hover:bg-green-800 cursor-pointer">
           Save Changes
         </button>
 

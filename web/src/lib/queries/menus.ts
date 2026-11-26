@@ -1,7 +1,8 @@
 import pool from "../db"
 import { requireAdmin } from "../auth/admin-access"
 import type { CreateMenuPackageInput } from "../validation/menu";
-
+import type { UpdateMenuPackageInput } from "../validation/menu";
+ 
 
 export type MenuPackage = {
     packageId: string;
@@ -118,3 +119,29 @@ export async function getMenuPackageById(
 
 
     }
+    export async function updateMenuPackage(
+  data: UpdateMenuPackageInput
+): Promise<boolean> {
+    await requireAdmin();
+    
+    const result = await pool.query(
+    `UPDATE menu_package
+     SET
+     package_name = $1,
+    description = $2,
+    price_per_person = $3,
+     minimum_guests = $4
+     WHERE package_id = $5
+     RETURNING package_id`,
+    [
+
+        data.packageName,
+        data.description || null,
+        data.pricePerPerson,
+        data.minimumGuests,
+        data.packageId
+        ]
+  );
+
+  return result.rowCount === 1;
+}
