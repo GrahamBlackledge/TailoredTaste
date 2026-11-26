@@ -2,7 +2,7 @@ import EnquiryForm from "@/components/EnquiryForm";
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
+    <main className="public-page mx-auto max-w-3xl px-6 py-12">
         <h1 className="mb-4 text-4xl font-bold"> Make an enquiry</h1>
 
         <p className="mb-8 text-lg text-gray-700"> 

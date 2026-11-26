@@ -71,7 +71,8 @@ async function BookingFormPage({
             );
         }
          return (
-            <main className="max-w-3xl mx-auto p-8">
+            <main className="admin-page p-8">
+                <div className="max-w-3xl mx-auto ">
 
                 <Link href={`/admin/enquiries/${enquiryId}`}
                 className="text-green-800 underline">
@@ -188,7 +189,7 @@ async function BookingFormPage({
                 </form>
 
 
-
+</div>
 
 
             </main>

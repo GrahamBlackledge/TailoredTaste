@@ -21,12 +21,13 @@ async function AddBookingForm() {
     const customers = await getCustomers();
 
     return (
-        <main className="max-w-3xl mx-auto p-8">
+        <main className="admin-page p-8">
+            <div className="max-w-3xl mx-auto">
             <Link href="/admin" className="text-green-800 underline">Back to dashboard</Link>
 
             <h1 className="text-3xl font-bold text-green-900 mt-6 mb-6">Add new Booking</h1>
 
-             <form action={saveManualBooking} className="border rounded-lg p-6 space-y-5">
+             <form action={saveManualBooking} className="bg-white border border-stone-200 rounded-xl shadow-sm p-6 space-y-5">
 
                 <div>
                     <label htmlFor="customerId" className="bock font-medium mb-1">
@@ -113,6 +114,7 @@ async function AddBookingForm() {
 
 
             </form>
+            </div>
         </main>
     )
 }

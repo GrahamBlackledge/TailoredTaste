@@ -20,7 +20,8 @@ async function MenuManagement() {
     const menus = await getMenuPackages();
 
     return (
-        <main className="max-w-5xl mx-auto p-8">
+        <main className="admin-page p-8">
+         <div className="max-w-5xl mx-auto">
             <Link href="/admin" className="text-green-800 underline">
                 Back to dashboard
             </Link>
@@ -30,7 +31,7 @@ async function MenuManagement() {
             <h1 className="text-3xl font-bold text-green-900 mt-6 mb-3">
                 Menu Management
             </h1>
-            <div className="border rounded-lg overflow-hidden ">
+            <div className="bg-white border rounded-lg overflow-hidden">
 
                 <table className="w-full text-left">
                     <thead className="bg-gray-100">
@@ -75,7 +76,7 @@ async function MenuManagement() {
                     </p>
                 )}
             </div>
-            <section className="border rounded-lg p-6 mt-8 mb-8">
+            <section className="bg-white border border-stone-200 rounded-xl shadow-sm p-6 mt-8 mb-8">
                 <h2 className="text-xl font-bold text-green-900 mb-5">
                     Create Menu Package
                 </h2>
@@ -149,7 +150,7 @@ async function MenuManagement() {
 
 
 
-            <section className="border rounded-lg p-6 mb-8 mt-8">
+            <section className="bg-white border border-stone-200 rounded-xl shadow-sm p-6 mt-8 mb-8">
                 <h2 className="text-xl font-bold text-green-900 mb-5">
                     Upload Menu
 
@@ -217,7 +218,7 @@ async function MenuManagement() {
 
             </section>        
 
-
+            </div>
         </main>
     )
 }

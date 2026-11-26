@@ -15,20 +15,12 @@ async function BookingsList() {
   // Retrieve bookings from PostgreSQL
   const bookings = await getBookings();
 
-    //Mini calendar import
-    const calendarEvents = bookings
-        .filter((booking) => booking.status === "confirmed")
-        .map((booking) => ({
-            id: booking.bookingId,
-            title: booking.customerName,
-            start: booking.eventDate,
-            allDay: true,
-            url: `/admin/bookings/${booking.bookingId}`,
-        }));
+  
 
 
   return (
-     <main className="max-w-6xl mx-auto p-8">
+     <main className="admin-page p-8">
+        <div className="max-w-6xl mx-auto">
         <Link href={"/admin"} className="text-green-800 underline"> Back to Dashboard</Link>
         <h1 className="text-3xl font-bold text-green-900 mt-6 mb-6"> Booking mangement</h1>
 
@@ -69,7 +61,7 @@ async function BookingsList() {
                 No bookings found.
                 </p>
             )}
-
+        </div>
 
         </div>
      </main>

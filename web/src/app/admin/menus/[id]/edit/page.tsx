@@ -37,7 +37,8 @@ async function EditMenuContent({ params }: Props) {
         notFound();
   }
  return (
-    <main className="max-w-3xl mx-auto p-8">
+     <main className="admin-page p-8">
+        <div className="max-w-3xl mx-auto">
 
       <Link
         href="/admin/menus" className="text-green-800 underline">
@@ -48,7 +49,7 @@ async function EditMenuContent({ params }: Props) {
         Edit Menu Package
       </h1>
 
-      <form  action={saveMenuPackageChanges} className="border rounded-lg p-6 space-y-5">
+      <form  action={saveMenuPackageChanges} className="bg-white border border-stone-200 rounded-xl shadow-sm p-8 space-y-5">
 
         <input
           type="hidden"
@@ -148,7 +149,7 @@ async function EditMenuContent({ params }: Props) {
 
 
       </form>
-
+    </div>
     </main>
   );
 }

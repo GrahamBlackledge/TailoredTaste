@@ -5,9 +5,10 @@ import { getPublicMenuPackages } from "@/lib/queries/menus";
 
 export default function Menus() {
     return (
-        <div className="max-w-6xl mx-auto px-6 py-16">
+      
+        <div className="public-page px-6 py-16">
 
-            < section className="max-w-6xl mx-auto px-6 py-16">
+            <section className="max-w-6xl mx-auto mb-12">
                 <h1 className="text-4xl font-bold mb-6">Our Menus</h1>
 
                 <p className="text-lg text-gray-600 max-w-3xl">
@@ -43,7 +44,7 @@ async function PublicMenuCards() {
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {menus.map((menu) => (
             <MenuCard
               key={menu.packageId}

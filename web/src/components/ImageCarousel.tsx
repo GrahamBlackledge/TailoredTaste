@@ -31,7 +31,7 @@ export default function ImageCarousel() {
       <div className="max-w-6xl mx-auto px-6">
 
         <h2 className="text-3xl font-bold mb-8">
-         lorem ipsum
+         Gallery
         </h2>
 
         
@@ -48,7 +48,7 @@ export default function ImageCarousel() {
 
               <Image
                 src={image}
-                alt={`Tailored Taste gallery image ${index + 1}`}
+                alt={`Tailored Taste image ${index + 1}`}
                 fill
                 sizes="(max-width: 640px) 85vw, (max-width: 1024px) 48vw, 32vw"
                 className="object-cover rounded-lg"

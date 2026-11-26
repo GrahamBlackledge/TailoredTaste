@@ -38,9 +38,6 @@ export default async function Navbar() {
                                 Dashboard
                             </Link>
 
-                            <Link href="/admin/enquiries" className="hover:text-amber-300">
-                                Enquiries
-                            </Link>
 
                             <Link href="/admin/bookings" className="hover:text-amber-300">
                                 Bookings

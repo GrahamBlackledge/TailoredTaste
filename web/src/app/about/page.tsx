@@ -3,7 +3,7 @@ import ImageCarousel from "@/components/ImageCarousel";
 
 export default function About() {
     return (
-        <main className="bg-amber-50 text-gray-800">
+        <main className="public-page bg-amber-50 text-gray-800">
 
             <section className="max-w-6xl mx-auto px-6 py-16">
                 <h1 className="text-4xl font-bold mb-6">About Tailored Taste</h1>   

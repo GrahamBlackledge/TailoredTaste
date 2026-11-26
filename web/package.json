@@ -11,7 +11,8 @@
   "dependencies": {
     "@fullcalendar/react": "^7.1.5",
     "argon2": "^0.45.2",
-    "next": "16.4.4",
+    "install": "^0.13.0",
+    "next": "^16.4.6",
     "next-auth": "^5.0.0-beta.32",
     "pg": "^8.23.1",
     "react": "19.3.0",
@@ -27,7 +28,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.4.4",
+    "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

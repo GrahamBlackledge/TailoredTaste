@@ -4,7 +4,7 @@ import MenuCard from "@/components/MenuCard";
 
 export default function Home() {
   return (
-    <main className="bg-amber-50 text-gray-800">
+    <main className="public-page bg-amber-50 text-gray-800">
 
       
 

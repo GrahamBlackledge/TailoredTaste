@@ -29,12 +29,14 @@ async function CalendarContent() {
         );
 
         return (
-            <main className="max-w-6xl mx-auto p-8">
+            <main className="admin-page p-8">
+              <div className="max-w-4xl mx-auto">
                 <Link href="/admin" className="text-green-800 underline">Back to Dashboard</Link>
 
                 <h1 className="text-3xl font-bold my-6">Booking Calendar</h1>
 
                 <BookingCalendar events={events}/>
+               </div>
             </main>
         )
 }

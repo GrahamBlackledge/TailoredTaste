@@ -11,7 +11,7 @@ import { getBookings } from "@/lib/queries/bookings";
 
 export default function AdminPage() {
     return (
-        <main className="min-h-screen bg-gray-100 p-8">
+        <main className="admin-page p-8">
             <Suspense fallback={<p>Checkin admin access...</p>}>
                 <AdminDashboard />
             </Suspense>

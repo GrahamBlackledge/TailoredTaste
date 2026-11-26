@@ -37,7 +37,7 @@ export default function MenuCard({ title, description, fileUrl }: MenuCardProps)
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            className="bg-white rounded-lg p-8 max-w-lg w-full relative"
+            className="bg-white rounded-xl shadow-xl p-8 w-[95vw] max-w-4xl max-h-[92vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
 
@@ -58,9 +58,9 @@ export default function MenuCard({ title, description, fileUrl }: MenuCardProps)
 
             {fileUrl ? (
                 <iframe
-                    src={fileUrl}
+                    src={`${fileUrl}#toolbar=0&navpanes=0`}
                     title={title}
-                    className="w-full h-96 border rounded-lg"
+                    className="w-full h-[65vh] rounded-lg border border-stone-200"
                 ></iframe>
             ) : (
                 

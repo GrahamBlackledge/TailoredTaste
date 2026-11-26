@@ -64,7 +64,7 @@ export default function Footer() {
 
                         <Link
                             href="/contact"
-                            className="inline-block text-sm text-amber-200 border-b border-amber-200 pb-1 hover:text-white"
+                            className="inline-block text-sm text-amber-200 border-b border-amber-300 pb-1 hover:text-white"
                         >
                             Make an Enquiry
                         </Link>

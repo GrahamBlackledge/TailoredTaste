@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Services()  {
     return (
-        <main className="bg-amber-50 text-gray=800">
+        <main className="public-page bg-amber-50 text-gray=800">
 
             <section className="max-w-6xl mx-auto px-6 py-16">
                 <h1 className=" tect-4xl font-bold mb-6">Our Services</h1>

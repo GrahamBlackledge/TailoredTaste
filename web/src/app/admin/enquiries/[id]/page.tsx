@@ -42,8 +42,8 @@ export default async function EnquiryDetailPage({
 
         return  (
 
-            <main className="min-h-screen bg-gray-100  p-8">
-                <div className="max -w-4xl mx-auto">
+            <main className=" admin-page p-8">
+                <div className="max-w-4xl mx-auto">
 
                     <Link href="/admin" className="text-green-900 hover:underline"> Back to Dashboard</Link>
                     <div className="bg-white rounded-xl shadow p-8 mt-6">
@@ -109,8 +109,8 @@ export default async function EnquiryDetailPage({
                             <p className="mb-2">
                                 <strong>location:</strong>{" "}  {enquiry.eventLocation ?? "Not provided"}
                                 </p>
-                            <p className="mb-2">
-                                Dietary requirements:
+                            <p className="mb-2"><strong>
+                                Dietary requirements:</strong>
                                 </p>
                             <p className="bg-gray-50 p-4 rounded-lg whitespace-pre-wrap">
                                 {enquiry.dietaryNotes ?? "Not provided"} </p>
@@ -142,11 +142,13 @@ export default async function EnquiryDetailPage({
 
                     </div>
                 </div>
-                <Link
-                    href={`/admin/bookings/new?enquiryId=${enquiry.enquiryId}`}
-                    className="inline-block bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-900">
-                    Create Booking
-                </Link>
+                <div className="flex justify-center mt-8">
+                    <Link
+                        href={`/admin/bookings/new?enquiryId=${enquiry.enquiryId}`}
+                        className="inline-block bg-green-800 text-white px-6 py-3 rounded-lg hover:bg-green-900">
+                        Create Booking
+                    </Link>
+                </div>
             </main>
 
 

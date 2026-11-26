@@ -29,3 +29,50 @@ body {
   font-family: Georgia, 'Times New Roman', Times, serif;
   letter-spacing: 0.015em;
 }
+
+.public-page {
+  background-color: #F8F4E9;
+  color: #354338;
+  min-height: 100vh;
+  font-family: Aptos, "Segoe UI", Arial, sans-serif;
+}
+
+.public-page h1,
+.public-page h2,
+.public-page h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #16432D;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+
+.public-page p {
+  line-height: 1.75;
+}
+.public-card {
+  background-color: #FFFCF5;
+  border: 1px solid #DFD4BF;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(20, 50, 30, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+
+.public-card:hover {
+
+  box-shadow: 0 8px 24px rgba(20, 50, 30, 0.10);
+}
+
+.admin-page {
+    background-color: #F8F4E9;
+    color: #354338;
+    min-height: 100vh;
+}
+
+.admin-page h1,
+.admin-page h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #16432D;
+    font-weight: 400;
+}
