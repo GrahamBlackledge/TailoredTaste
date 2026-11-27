@@ -156,8 +156,10 @@ export async function POST(request: Request) {
   }
 
 
-  return NextResponse.redirect(
-    new URL("/admin/menus?uploaded=1", request.url),
-    303
-  );
-}
+      return new Response(null, {
+        status: 303,
+        headers: {
+            Location: "/admin/menus?uploaded=1",
+        },
+    });
+  }
