@@ -115,7 +115,7 @@ export async function getBookingForEnquiry(
             ]
           );
 
-      
+     
           await client.query(
             `UPDATE enquiry
             SET status = 'closed'

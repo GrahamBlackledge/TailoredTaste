@@ -55,7 +55,7 @@ export default async function EnquiryDetailPage({
                              className="bg-gray-50 p-6 rounded-lg mb-8">
 
                                 <h2 className="text-lg font-bold mb-4">
-                                    Upadte status
+                                    Update status
                                 </h2>
                                 <label htmlFor="status" className="block text-sm font-medium mb-2">
                                     Select status

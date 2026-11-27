@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { auth } from "@/auth"
+import { connection } from "next/server";
 
 
 
 export default async function Navbar() {
+
+    await connection();
 
     const session = await auth();
     const isAdmin = Boolean(session?.user);

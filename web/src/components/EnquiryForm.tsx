@@ -2,9 +2,10 @@
 "use client";
 
 import { useState, type SubmitEvent } from "react";
+import { useRouter } from "next/navigation";
 
 type ApiResponse = {
-  success: boolean;
+  success?: boolean;
   message?: string;
   enquiryId?: number | string;
   errors?: { field: string; message: string }[];
@@ -20,7 +21,10 @@ const parseErr = (errs?: { field: string; message: string }[]) => {
 export default function EnquiryForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  
+  
+  const router = useRouter();
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const inputStyle = "mt-1 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900";
   const labelStyle = "block text-sm font-medium text-gray-800";
@@ -44,7 +48,7 @@ export default function EnquiryForm() {
 
     setLoading(true);
     setError("");
-    setSuccess("");
+    setShowSuccess(false);
 
     //Send the enquiry data to the API endpoint
     try {
@@ -57,15 +61,21 @@ export default function EnquiryForm() {
       });
 
       const data = (await res.json()) as ApiResponse;
+      
 
-      if (!res.ok || !data.success) {
+      if (!res.ok || data.success === false) {
         const details = parseErr(data.errors);
         setError(details || data.message || "Submission failed");
         return;
       }
 
-      setSuccess(`Enquiry submitted! Reference: ${data.enquiryId}`);
-      form.reset();
+      setShowSuccess(true);
+        form.reset();
+
+        setTimeout(() => {
+        setShowSuccess(true);  
+        router.replace("/");
+      }, 2000);
     } catch {
       setError("Unable to connect. Please try again.");
     } finally {
@@ -190,15 +200,24 @@ export default function EnquiryForm() {
         </p>
       )}
 
-      {success && (
-        <p role="status" className="text-green-700">
-          {success}
-        </p>
-      )}
+      {showSuccess && (
+  <div
+    role="status"
+    aria-live="polite"
+    className="fixed top-8 left-1/2 -translate-x-1/2 z-50
+              w-[90%] max-w-md bg-white border border-green-200
+               rounded-xl shadow-xl px-6 py-5 text-center">
+                 <p className="text-xl font-semibold text-green-900">
+                    Enquiry Submitted
+                  </p>
+
+               </div>
+)}
+
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || showSuccess}
         className="rounded-lg bg-gray-900 px-6 py-3 text-white disabled:opacity-50"
       >
         {loading ? "Submitting..." : "Submit Enquiry"}

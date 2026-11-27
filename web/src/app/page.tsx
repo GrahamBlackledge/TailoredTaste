@@ -27,9 +27,12 @@ export default function Home() {
          </div>
 
 
-        <div className="w-full md:w-1/2 h-72 bg-gray-200 flex items-center justify-center rounded-lg">
-          <h3 className="text-gray-500">Hero image</h3>
-        </div>
+        <div className="w-full md:w-1/2 h-72 rounded-lg overflow-hidden">
+        <img
+          src="/images/hero.jpg"
+          alt="Hero picture"
+          className="w-full h-full object-cover"/>
+</div>
       </section>
 
       {/* About Section */}
